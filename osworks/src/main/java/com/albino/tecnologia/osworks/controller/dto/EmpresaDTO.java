@@ -1,5 +1,6 @@
 package com.albino.tecnologia.osworks.controller.dto;
 
+import com.albino.tecnologia.osworks.model.TipoDeEmpresa;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 public class EmpresaDTO {
     private String CNPJ;
     private String razaoSocial;
+    private TipoDeEmpresa tipoDeEmpresa;
     private String inscricaoEstadual;
     private String numeroDeTelefone;
     private String email;
