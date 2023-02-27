@@ -2,6 +2,7 @@ package com.albino.tecnologia.osworks.service.impl;
 
 import com.albino.tecnologia.osworks.controller.dto.ResponsavelDTO;
 import com.albino.tecnologia.osworks.model.Responsavel;
+import com.albino.tecnologia.osworks.repository.ResponsavelRepository;
 import com.albino.tecnologia.osworks.service.ResponsavelService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

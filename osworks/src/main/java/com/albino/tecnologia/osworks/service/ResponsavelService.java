@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ResponsavelService {
     Responsavel encontrarPeloIdResponsavel(Long id);
-    List<Responsavel> listarTodosOsResponsaveis();
+    List<Responsavel> listarTodosResponsaveis();
     Responsavel criarResponsavel(ResponsavelDTO responsavelDTO);
     Responsavel atualizarResponsavel(Long id,ResponsavelDTO responsavelDTO);
     void deletarResponsavel(Long id);

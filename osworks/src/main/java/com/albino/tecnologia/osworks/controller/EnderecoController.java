@@ -21,7 +21,7 @@ public class EnderecoController {
     public List<Endereco> listarTodosEnderecos(){return enderecoService.listarTodosEnderecos(); }
 
     @PostMapping
-    public Endereco criarEndereco (@RequestBody EnderecoDTO enderecoDTO){return enderecoService.criarEndreco(enderecoDTO); }
+    public Endereco criarEndereco (@RequestBody EnderecoDTO enderecoDTO){return enderecoService.criarEndereco(enderecoDTO); }
 
     @PutMapping("/{id}")
     public Endereco atualizarEndereco (@PathVariable Long id, @RequestBody EnderecoDTO enderecoDTO){
