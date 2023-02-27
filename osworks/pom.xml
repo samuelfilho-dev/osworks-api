@@ -14,7 +14,7 @@
 	<name>osworks</name>
 	<description>Projeto de Lab. De Software</description>
 	<properties>
-		<java.version>19</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
