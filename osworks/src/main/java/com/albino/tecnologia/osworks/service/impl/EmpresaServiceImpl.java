@@ -34,6 +34,7 @@ public class EmpresaServiceImpl implements EmpresaService {
                 .razaoSocial(empresaDTO.getRazaoSocial())
                 .inscricaoEstadual(empresaDTO.getInscricaoEstadual())
                 .numeroDeTelefone(empresaDTO.getNumeroDeTelefone())
+                .tipoDeEmpresa(empresaDTO.getTipoDeEmpresa())
                 .email(empresaDTO.getEmail())
                 .dataDeNascimento(empresaDTO.getDataDeNascimento())
                 .build();

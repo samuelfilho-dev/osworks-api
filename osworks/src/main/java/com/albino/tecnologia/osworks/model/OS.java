@@ -7,23 +7,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Empresa {
-
+public class OS {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true)
-    private String CNPJ;
-    private TipoDeEmpresa tipoDeEmpresa;
-    private String razaoSocial;
-    private String inscricaoEstadual;
-    private String numeroDeTelefone;
-    private String email;
-    private LocalDate dataDeNascimento;
+    private String codigoDaOS;
+    private String descricao;
+    private LocalTime qtdDeHoras;
+    private Integer qtdPontosDeFuncao;
+    private LocalDate dataDeAbertura;
+
 }
