@@ -1,19 +1,24 @@
-/* //codigo do jenkins file pendente para ser inserido aqui >by Fransualdo Lopes
 pipeline {
     agent any
- tools{
-     marven 'local_maven' 
- }
- 
+    tools {
+        maven 'local_maven' 
+    }
     stages {
-        stage('Build'){
+        stage('Checkout') {
             steps {
-                sh 'mvn clean package'
+                checkout([$class: 'GitSCM', 
+                          branches: [[name: '*/master']], 
+                          userRemoteConfigs: [[url: 'https://github.com/SEU_USUARIO/SEU_REPOSITORIO.git']]])
             }
-            post{
-                success{
-                  echo"Arquivando os Artefatos"
-                  archiveArtifacts artifacts: '**/target/*.war'
+        }
+        stage('Build') {
+            steps {
+                sh 'mvn -f pom.xml clean install'
+            }
+            post {
+                success {
+                    echo "Arquivando os Artefatos"
+                    archiveArtifacts artifacts: '**/target/*.war'
                 }
             }
         }
