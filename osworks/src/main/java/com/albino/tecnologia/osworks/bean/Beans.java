@@ -13,20 +13,29 @@ import org.springframework.context.annotation.Configuration;
 public class Beans {
 
     @Bean
-    Empresa empresa(){
+    Empresa empresa() {
         return new Empresa();
     }
-    Contrato contrato(){return new Contrato(); }
-    Responsavel responsavel(){return new Responsavel();}
-    Endereco endereco(){return new Endereco();}
+
+    Contrato contrato() {
+        return new Contrato();
+    }
+
+    Responsavel responsavel() {
+        return new Responsavel();
+    }
+
+    Endereco endereco() {
+        return new Endereco();
+    }
 
     @Bean
-    Projeto projeto(){
+    Projeto projeto() {
         return new Projeto();
     }
 
     @Bean
-    OS os(){
+    OS os() {
         return new OS();
     }
 

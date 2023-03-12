@@ -4,6 +4,9 @@ import com.albino.tecnologia.osworks.controller.dto.EmpresaDTO;
 import com.albino.tecnologia.osworks.model.Empresa;
 import com.albino.tecnologia.osworks.service.impl.EmpresaServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,27 +19,46 @@ public class EmpresaController {
     private final EmpresaServiceImpl empresaService;
 
     @GetMapping("/{id}")
-    public Empresa encontrarPeloId(@PathVariable Long id){
-        return empresaService.encontrarPeloId(id);
+    @PreAuthorize("hasRole('ROLE_FINACEIRO')")
+    public ResponseEntity<Empresa> encontrarPeloId(@PathVariable Long id){
+
+        Empresa empresa = empresaService.encontrarPeloId(id);
+
+        return ResponseEntity.ok(empresa);
     }
 
     @GetMapping
-    public List<Empresa> listarTodasEmpresas(){
-        return empresaService.listarTodasEmpresas();
+    @PreAuthorize("hasRole('ROLE_FINACEIRO')")
+    public ResponseEntity<List<Empresa>> listarTodasEmpresas(){
+
+        List<Empresa> empresaList = empresaService.listarTodasEmpresas();
+
+        return ResponseEntity.ok(empresaList);
+
     }
 
     @PostMapping
-    public Empresa criarEmpresa(@RequestBody EmpresaDTO empresaDTO){
-        return empresaService.criarEmpresa(empresaDTO);
+    @PreAuthorize("hasRole('ROLE_FINACEIRO')")
+    public ResponseEntity<Empresa> criarEmpresa(@RequestBody EmpresaDTO empresaDTO){
+
+        Empresa empresaCriada = empresaService.criarEmpresa(empresaDTO);
+
+        return new ResponseEntity<>(empresaCriada, HttpStatus.CREATED);
+
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_FINACEIRO')")
     public Empresa atualizarEmpresa(@PathVariable Long id, @RequestBody EmpresaDTO empresaDTO){
         return empresaService.atualizarEmpresa(id,empresaDTO);
     }
 
     @DeleteMapping("/{id}")
-    public void deletarEmpresa(@PathVariable Long id){
+    @PreAuthorize("hasRole('ROLE_FINACEIRO')")
+    public ResponseEntity<Void> deletarEmpresa(@PathVariable Long id){
+
         empresaService.deletarEmpresa(id);
+
+        return ResponseEntity.noContent().build();
     }
 }

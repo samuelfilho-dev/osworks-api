@@ -4,6 +4,9 @@ import com.albino.tecnologia.osworks.controller.dto.ResponsavelDTO;
 import com.albino.tecnologia.osworks.model.Responsavel;
 import com.albino.tecnologia.osworks.service.impl.ResponsavelServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,26 +16,51 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ResponsavelController {
     private final ResponsavelServiceImpl responsavelService;
+
     @GetMapping("/{id}")
-    public Responsavel encontrarPeloIdResponsavel(@PathVariable Long id){
-        return responsavelService.encontrarPeloIdResponsavel(id);
+    @PreAuthorize("hasRole('ROLE_FINACEIRO')")
+    public ResponseEntity<Responsavel> encontrarPeloIdResponsavel(@PathVariable Long id) {
+
+        Responsavel responsavel = responsavelService.encontrarPeloIdResponsavel(id);
+
+        return ResponseEntity.ok(responsavel);
     }
 
     @GetMapping
-    public List<Responsavel> listarTodosResponsaveis(){
-        return responsavelService.listarTodosResponsaveis();
+    @PreAuthorize("hasRole('ROLE_FINACEIRO')")
+    public ResponseEntity<List<Responsavel>> listarTodosResponsaveis() {
+
+        List<Responsavel> responsavelList = responsavelService.listarTodosResponsaveis();
+
+        return ResponseEntity.ok(responsavelList);
     }
 
     @PostMapping
-    public Responsavel criarResponsavel(@RequestBody ResponsavelDTO responsavelDTO){
-        return responsavelService.criarResponsavel(responsavelDTO);
+    @PreAuthorize("hasRole('ROLE_FINACEIRO')")
+    public ResponseEntity<Responsavel> criarResponsavel(@RequestBody ResponsavelDTO responsavelDTO) {
+
+        Responsavel responsavelCriado = responsavelService.criarResponsavel(responsavelDTO);
+
+        return new ResponseEntity<>(responsavelCriado, HttpStatus.CREATED);
+
     }
 
     @PutMapping("/{id}")
-    public Responsavel atualizarResponsavel(@PathVariable Long id, @RequestBody ResponsavelDTO responsavelDTO){
-        return responsavelService.atualizarResponsavel(id,responsavelDTO);
+    @PreAuthorize("hasRole('ROLE_FINACEIRO')")
+    public ResponseEntity<Responsavel> atualizarResponsavel(@PathVariable Long id, @RequestBody ResponsavelDTO responsavelDTO) {
+
+        Responsavel responsavelAtualizado = responsavelService.atualizarResponsavel(id, responsavelDTO);
+
+        return ResponseEntity.ok(responsavelAtualizado);
+
     }
 
     @DeleteMapping("/{id}")
-    public void deletarResponsavel(@PathVariable Long id){ responsavelService.deletarResponsavel(id);}
+    @PreAuthorize("hasRole('ROLE_FINACEIRO')")
+    public ResponseEntity<Void> deletarResponsavel(@PathVariable Long id) {
+
+        responsavelService.deletarResponsavel(id);
+
+        return ResponseEntity.noContent().build();
+    }
 }
