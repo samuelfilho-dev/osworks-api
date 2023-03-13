@@ -19,7 +19,7 @@ public class OSServiceImpl implements OSService {
 
     @Override
     public OS encontrarPeloId(Long id) {
-        log.info("Os Encontrada '{}'", id);
+        log.info("OS com ID:'{}' Encontrada", id);
         return osRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Não Encontramos Id"));
     }
@@ -36,7 +36,7 @@ public class OSServiceImpl implements OSService {
         Integer contador = geradorDeCodigoDaOS();
         String codigoDaOS = String.format("OS-Nº%05d", contador);
 
-        log.info("Criando OS '{}'", osdto);
+        log.info("Nova OS Criada '{}'", osdto);
         OS novaOS = OS.builder()
                 .codigoDaOS(codigoDaOS)
                 .descricao(osdto.getDescricao())
@@ -45,7 +45,6 @@ public class OSServiceImpl implements OSService {
                 .dataDeAbertura(osdto.getDataDeAbertura())
                 .build();
 
-        log.info("OS Criada '{}'", osdto);
         return osRepository.save(novaOS);
     }
 
@@ -54,23 +53,23 @@ public class OSServiceImpl implements OSService {
 
         OS osAtualizada = encontrarPeloId(id);
 
-        log.info("Atualizando OS '{}''{}'", id, osdto);
+        log.info("OS com ID:'{}' Sendo Atualizada '{}'", id, osdto);
         osAtualizada.setDescricao(osdto.getDescricao());
         osAtualizada.setQtdDeHoras(osdto.getQtdDeHoras());
         osAtualizada.setQtdPontosDeFuncao(osdto.getQtdPontosDeFuncao());
         osAtualizada.setDataDeAbertura(osdto.getDataDeAbertura());
 
-        log.info("OS Atualizada para '{}''{}'", id, osdto);
+        log.info("OS com ID:'{}' Atualizada '{}'", id, osdto);
         return osRepository.save(osAtualizada);
     }
 
     @Override
     public void deletarOS(Long id) {
 
-        log.info("Inativando OS '{}'", id);
+        log.info("OS de ID:'{}' sendo Inativada ", id);
         OS osDeletada = encontrarPeloId(id);
 
-        log.info("OS Inativada '{}'", id);
+        log.info("OS de ID:'{}' foi Inativada", id);
         osRepository.delete(osDeletada);
     }
 

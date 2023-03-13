@@ -20,7 +20,7 @@ public class EmpresaServiceImpl implements EmpresaService {
     @Override
     public Empresa encontrarPeloId(Long id) {
 
-        log.info("Empresa Encontrada '{}'", id);
+        log.info("Empresa com ID:'{}' Encontrada", id);
        return empresaRespository.findById(id)
                .orElseThrow(()-> new RuntimeException("Id Não Encontrado"));
     }
@@ -35,7 +35,7 @@ public class EmpresaServiceImpl implements EmpresaService {
     @Override
     public Empresa criarEmpresa(EmpresaDTO empresaDTO) {
 
-        log.info("Criando Empresa '{}'", empresaDTO);
+        log.info("Nova Empresa Criada '{}'", empresaDTO);
         Empresa novaEmpresa = Empresa.builder()
                 .CNPJ(empresaDTO.getCNPJ())
                 .razaoSocial(empresaDTO.getRazaoSocial())
@@ -46,7 +46,6 @@ public class EmpresaServiceImpl implements EmpresaService {
                 .dataDeNascimento(empresaDTO.getDataDeNascimento())
                 .build();
 
-        log.info("Empresa Criada '{}'", empresaDTO);
         return empresaRespository.save(novaEmpresa);
     }
 
@@ -54,23 +53,23 @@ public class EmpresaServiceImpl implements EmpresaService {
     public Empresa atualizarEmpresa(Long id,EmpresaDTO empresaDTO) {
         Empresa empresaAtualizada = encontrarPeloId(id);
 
-        log.info("Atualizando Empresa '{}''{}'", id, empresaDTO);
+        log.info("Empresa de ID:'{}' Sendo Atualizada '{}'", id, empresaDTO);
         empresaAtualizada.setRazaoSocial(empresaDTO.getRazaoSocial());
         empresaAtualizada.setInscricaoEstadual(empresaDTO.getInscricaoEstadual());
         empresaAtualizada.setNumeroDeTelefone(empresaDTO.getNumeroDeTelefone());
         empresaAtualizada.setEmail(empresaDTO.getEmail());
         empresaAtualizada.setDataDeNascimento(empresaDTO.getDataDeNascimento());
 
-        log.info("Empresa Atualizada para '{}''{}'", id, empresaDTO);
+        log.info("Empresa de ID:'{}' Foi Atualizada '{}'", id, empresaDTO);
         return empresaRespository.save(empresaAtualizada);
     }
 
     @Override
     public void deletarEmpresa(Long id) {
-        log.info("Inativando Empresa '{}'", id);
+        log.info("Empresa de ID:'{}' Sendo Inativada", id);
         Empresa empresaDeletada = encontrarPeloId(id);
 
-        log.info("Empresa Inativada '{}'", id);
+        log.info("Empresa de ID:'{}' Foi Inativada", id);
         empresaRespository.delete(empresaDeletada);
     }
 }

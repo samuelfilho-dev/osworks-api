@@ -19,7 +19,7 @@ public class EnderecoServiceImpl implements  EnderecoService {
 
     @Override
     public Endereco encontrarPeloEndereco(Long id) {
-        log.info("Endereco Encontrado'{}'", id);
+        log.info("Endereco de ID:'{}' Encontrado", id);
         return enderecoRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("Id Não Encontrado"));
     }
@@ -34,7 +34,7 @@ public class EnderecoServiceImpl implements  EnderecoService {
     @Override
     public Endereco criarEndereco(EnderecoDTO enderecoDTO) {
 
-        log.info("Criando Endereco '{}'", enderecoDTO);
+        log.info("Novo Endereco Criado '{}'", enderecoDTO);
         Endereco novoEndereco = Endereco.builder()
                 .CEP(enderecoDTO.getCEP())
                 .logradouro(enderecoDTO.getLogradouro())
@@ -45,7 +45,6 @@ public class EnderecoServiceImpl implements  EnderecoService {
                 .UF(enderecoDTO.getUF())
                 .build();
 
-        log.info("Endereco Criado '{}'", enderecoDTO);
         return enderecoRepository.save(novoEndereco);
     }
 
@@ -53,7 +52,7 @@ public class EnderecoServiceImpl implements  EnderecoService {
     public Endereco atualizarEndereco(Long id,EnderecoDTO enderecoDTO) {
         Endereco enderecoAtualizado = encontrarPeloEndereco(id);
 
-        log.info("Atualizando Endereco '{}''{}", id, enderecoDTO);
+        log.info("Endereco de ID:'{}' Sendo Atualizada '{}", id, enderecoDTO);
         enderecoAtualizado.setCEP(enderecoDTO.getCEP());
         enderecoAtualizado.setLogradouro(enderecoDTO.getLogradouro());
         enderecoAtualizado.setNumero(enderecoDTO.getNumero());
@@ -62,16 +61,16 @@ public class EnderecoServiceImpl implements  EnderecoService {
         enderecoAtualizado.setCidade(enderecoDTO.getCidade());
         enderecoAtualizado.setUF(enderecoDTO.getUF());
 
-        log.info("Endereco Atualizado para '{}''{}'",id, enderecoDTO);
+        log.info("Endereco de ID:'{}' Foi Atualizado '{}'",id, enderecoDTO);
         return enderecoRepository.save(enderecoAtualizado);
     }
 
     @Override
     public void deletarEndereco(Long id) {
-        log.info("Inativando Endereco '{}'", id);
+        log.info("Endereco de ID:'{}' Sendo Inativado", id);
         Endereco enderecoDeletado = encontrarPeloEndereco(id);
 
-        log.info("Endereco Inativo '{}'",id);
+        log.info("Endereco de ID:'{}' Foi Inativado", id);
         enderecoRepository.delete(enderecoDeletado);
     }
 }

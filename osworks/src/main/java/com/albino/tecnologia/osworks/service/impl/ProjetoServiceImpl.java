@@ -20,7 +20,7 @@ public class ProjetoServiceImpl implements ProjetoService {
     @Override
     public Projeto encontrarPeloId(Long id) {
 
-        log.info("Projeto Encontrado '{}'",id);
+        log.info("Projeto de ID:'{}' Encontrado",id);
         return projetoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("ID não encontrado"));
     }
@@ -35,7 +35,7 @@ public class ProjetoServiceImpl implements ProjetoService {
     @Override
     public Projeto criarProjeto(ProjetoDTO projetoDTO) {
 
-        log.info("Criando Projeto '{}'", projetoDTO);
+        log.info("Novo Projeto Criado '{}'", projetoDTO);
         Projeto novoProjeto = Projeto.builder()
                 .nome(projetoDTO.getNome())
                 .descricao(projetoDTO.getDescricao())
@@ -44,7 +44,6 @@ public class ProjetoServiceImpl implements ProjetoService {
                 .status(projetoDTO.getStatus())
                 .build();
 
-        log.info("Projeto Criado '{}'", projetoDTO);
         return projetoRepository.save(novoProjeto);
     }
 
@@ -52,23 +51,23 @@ public class ProjetoServiceImpl implements ProjetoService {
     public Projeto atualizarProjeto(Long id, ProjetoDTO projetoDTO) {
         Projeto projetoAtualizado = encontrarPeloId(id);
 
-        log.info("Atualizando Projeto '{}' '{}", id, projetoDTO);
+        log.info("Projeto de ID:'{}' Sendo Atualizado '{}'", id, projetoDTO);
         projetoAtualizado.setNome(projetoDTO.getNome());
         projetoAtualizado.setDescricao(projetoDTO.getDescricao());
         projetoAtualizado.setDataDeInicio(projetoDTO.getDataDeInicio());
         projetoAtualizado.setDataDeTermino(projetoDTO.getDataDeTermino());
         projetoAtualizado.setStatus(projetoDTO.getStatus());
 
-        log.info("Projeto Atualizado para '{}' '{}", id, projetoDTO);
+        log.info("Projeto de ID:'{}' Foi Atualizado '{}'", id, projetoDTO);
         return projetoRepository.save(projetoAtualizado);
     }
 
     @Override
     public void deletarProjeto(Long id) {
-        log.info("Inativando Projeto '{}'", id);
+        log.info("Projeto de ID:'{}' Sendo Inativado", id);
         Projeto projetoDeletado = encontrarPeloId(id);
 
-        log.info("Projeto Inativado '{}'", id);
+        log.info("Projeto de ID:'{}' Foi Inativado", id);
         projetoRepository.delete(projetoDeletado);
     }
 }
