@@ -17,14 +17,17 @@ public class Beans {
         return new Empresa();
     }
 
+    @Bean
     Contrato contrato() {
         return new Contrato();
     }
 
+    @Bean
     Responsavel responsavel() {
         return new Responsavel();
     }
 
+    @Bean
     Endereco endereco() {
         return new Endereco();
     }
