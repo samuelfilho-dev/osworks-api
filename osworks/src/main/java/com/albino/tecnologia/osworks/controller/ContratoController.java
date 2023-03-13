@@ -20,7 +20,7 @@ public class ContratoController {
     private final ContratoServiceImpl contratoService;
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_FINACEIRO')")
+    @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
     public ResponseEntity<Contrato> encontrarPeloIdContrato(@PathVariable Long id){
 
         log.info("Retornando um Contrato");
@@ -32,7 +32,7 @@ public class ContratoController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ROLE_FINACEIRO')")
+    @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
     public ResponseEntity<List<Contrato>> listarTodosContratos(){
 
         log.info("Retornando um Todos Contratos");
@@ -43,7 +43,7 @@ public class ContratoController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ROLE_FINACEIRO')")
+    @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
     public ResponseEntity<Contrato> criarContrato(@RequestBody ContratoDTO contratoDTO){
 
         log.info("Criando Um Contrato");
@@ -55,7 +55,7 @@ public class ContratoController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_FINACEIRO')")
+    @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
     public ResponseEntity<Contrato> atualizarContrato(@PathVariable Long id, @RequestBody ContratoDTO contratoDTO){
 
         log.info("Atualizando Um Contrato");
@@ -67,7 +67,7 @@ public class ContratoController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_FINACEIRO')")
+    @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
     public ResponseEntity<Void> deletarContrato(@PathVariable Long id){
 
         log.info("Invativando Um Contrato");

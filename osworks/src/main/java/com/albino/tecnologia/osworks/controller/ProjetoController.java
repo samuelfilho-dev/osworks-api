@@ -4,6 +4,9 @@ import com.albino.tecnologia.osworks.controller.dto.ProjetoDTO;
 import com.albino.tecnologia.osworks.model.Projeto;
 import com.albino.tecnologia.osworks.service.impl.ProjetoServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,27 +19,49 @@ public class ProjetoController {
     private final ProjetoServiceImpl projetoService;
 
     @GetMapping("/{id}")
-    public Projeto encontrarPeloId(@PathVariable Long id) {
-        return projetoService.encontrarPeloId(id);
+    @PreAuthorize("hasRole('ROLE_GPP')")
+    public ResponseEntity<Projeto> encontrarPeloId(@PathVariable Long id) {
+
+        Projeto projeto = projetoService.encontrarPeloId(id);
+
+        return ResponseEntity.ok(projeto);
     }
 
     @GetMapping
-    public List<Projeto> listarTodosProjetos() {
-        return projetoService.listarTodosProjetos();
+    @PreAuthorize("hasRole('ROLE_GPP')")
+    public ResponseEntity<List<Projeto>> listarTodosProjetos() {
+
+        List<Projeto> projetoList = projetoService.listarTodosProjetos();
+
+        return ResponseEntity.ok(projetoList);
     }
 
     @PostMapping
-    public Projeto criarProjeto(@RequestBody ProjetoDTO projetoDTO) {
-        return projetoService.criarProjeto(projetoDTO);
+    @PreAuthorize("hasRole('ROLE_GPP')")
+    public ResponseEntity<Projeto> criarProjeto(@RequestBody ProjetoDTO projetoDTO) {
+
+        Projeto projetoCriado = projetoService.criarProjeto(projetoDTO);
+
+        return new ResponseEntity<>(projetoCriado, HttpStatus.CREATED);
+
     }
 
     @PutMapping("/{id}")
-    public Projeto atualizarProjeto(@PathVariable Long id, @RequestBody ProjetoDTO projetoDTO) {
-        return projetoService.atualizarProjeto(id, projetoDTO);
+    @PreAuthorize("hasRole('ROLE_GPP')")
+    public ResponseEntity<Projeto> atualizarProjeto(@PathVariable Long id, @RequestBody ProjetoDTO projetoDTO) {
+
+        Projeto projetoAtualizado = projetoService.atualizarProjeto(id, projetoDTO);
+
+        return ResponseEntity.ok(projetoAtualizado);
+
     }
 
     @DeleteMapping("/{id}")
-    public void deletarProjeto(@PathVariable Long id) {
+    @PreAuthorize("hasRole('ROLE_GPP')")
+    public ResponseEntity<Void> deletarProjeto(@PathVariable Long id) {
+
         projetoService.deletarProjeto(id);
+
+        return ResponseEntity.noContent().build();
     }
 }

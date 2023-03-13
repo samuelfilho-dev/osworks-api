@@ -18,7 +18,7 @@ public class EnderecoController {
     private final EnderecoServiceImpl enderecoService;
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_FINACEIRO')")
+    @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
     public ResponseEntity<Endereco> encontrarpeloEndereco(@PathVariable Long id) {
 
         Endereco endereco = enderecoService.encontrarPeloEndereco(id);
@@ -27,7 +27,7 @@ public class EnderecoController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ROLE_FINACEIRO')")
+    @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
     public ResponseEntity<List<Endereco>> listarTodosEnderecos() {
 
         List<Endereco> enderecoList = enderecoService.listarTodosEnderecos();
@@ -36,7 +36,7 @@ public class EnderecoController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ROLE_FINACEIRO')")
+    @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
     public ResponseEntity<Endereco> criarEndereco(@RequestBody EnderecoDTO enderecoDTO) {
 
         Endereco enderecoCriado = enderecoService.criarEndereco(enderecoDTO);
@@ -45,7 +45,7 @@ public class EnderecoController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_FINACEIRO')")
+    @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
     public ResponseEntity<Endereco> atualizarEndereco(@PathVariable Long id, @RequestBody EnderecoDTO enderecoDTO) {
 
         Endereco enderecoAtualizado = enderecoService.atualizarEndereco(id, enderecoDTO);
@@ -55,7 +55,7 @@ public class EnderecoController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_FINACEIRO')")
+    @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
     public ResponseEntity<Void> deletarEndereco(@PathVariable Long id) {
 
         enderecoService.deletarEndereco(id);

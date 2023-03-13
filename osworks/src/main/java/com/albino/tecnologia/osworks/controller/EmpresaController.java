@@ -19,7 +19,7 @@ public class EmpresaController {
     private final EmpresaServiceImpl empresaService;
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_FINACEIRO')")
+    @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
     public ResponseEntity<Empresa> encontrarPeloId(@PathVariable Long id){
 
         Empresa empresa = empresaService.encontrarPeloId(id);
@@ -28,7 +28,7 @@ public class EmpresaController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ROLE_FINACEIRO')")
+    @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
     public ResponseEntity<List<Empresa>> listarTodasEmpresas(){
 
         List<Empresa> empresaList = empresaService.listarTodasEmpresas();
@@ -38,7 +38,7 @@ public class EmpresaController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ROLE_FINACEIRO')")
+    @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
     public ResponseEntity<Empresa> criarEmpresa(@RequestBody EmpresaDTO empresaDTO){
 
         Empresa empresaCriada = empresaService.criarEmpresa(empresaDTO);
@@ -48,13 +48,13 @@ public class EmpresaController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_FINACEIRO')")
+    @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
     public Empresa atualizarEmpresa(@PathVariable Long id, @RequestBody EmpresaDTO empresaDTO){
         return empresaService.atualizarEmpresa(id,empresaDTO);
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_FINACEIRO')")
+    @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
     public ResponseEntity<Void> deletarEmpresa(@PathVariable Long id){
 
         empresaService.deletarEmpresa(id);

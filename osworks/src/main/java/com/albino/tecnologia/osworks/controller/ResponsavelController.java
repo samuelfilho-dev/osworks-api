@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/Responsavel")
+@RequestMapping("/api/v1/responsavel")
 @RequiredArgsConstructor
 public class ResponsavelController {
     private final ResponsavelServiceImpl responsavelService;
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_FINACEIRO')")
+    @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
     public ResponseEntity<Responsavel> encontrarPeloIdResponsavel(@PathVariable Long id) {
 
         Responsavel responsavel = responsavelService.encontrarPeloIdResponsavel(id);
@@ -27,7 +27,7 @@ public class ResponsavelController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ROLE_FINACEIRO')")
+    @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
     public ResponseEntity<List<Responsavel>> listarTodosResponsaveis() {
 
         List<Responsavel> responsavelList = responsavelService.listarTodosResponsaveis();
@@ -36,7 +36,7 @@ public class ResponsavelController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ROLE_FINACEIRO')")
+    @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
     public ResponseEntity<Responsavel> criarResponsavel(@RequestBody ResponsavelDTO responsavelDTO) {
 
         Responsavel responsavelCriado = responsavelService.criarResponsavel(responsavelDTO);
@@ -46,7 +46,7 @@ public class ResponsavelController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_FINACEIRO')")
+    @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
     public ResponseEntity<Responsavel> atualizarResponsavel(@PathVariable Long id, @RequestBody ResponsavelDTO responsavelDTO) {
 
         Responsavel responsavelAtualizado = responsavelService.atualizarResponsavel(id, responsavelDTO);
@@ -56,7 +56,7 @@ public class ResponsavelController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_FINACEIRO')")
+    @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
     public ResponseEntity<Void> deletarResponsavel(@PathVariable Long id) {
 
         responsavelService.deletarResponsavel(id);
