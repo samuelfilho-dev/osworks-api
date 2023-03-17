@@ -19,6 +19,7 @@ public class ContratoServiceImpl implements ContratoService {
     public Contrato encontrarPeloIdContrato(Long id) {
 
         log.info("Encontrado o Contrato com ID:'{}'",id);
+
         return contratoRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("Id Não Encontrado"));
     }
@@ -27,6 +28,7 @@ public class ContratoServiceImpl implements ContratoService {
     public List<Contrato> listarTodosContratos() {
 
         log.info("Listando Todos os Contratos");
+
         return contratoRepository.findAll();
     }
 
@@ -34,13 +36,15 @@ public class ContratoServiceImpl implements ContratoService {
     public Contrato criarContrato(ContratoDTO contratoDTO) {
 
         log.info("Novo Contrato Criado '{}'", contratoDTO);
+
         Contrato novoContrato = Contrato.builder()
                 .numero(contratoDTO.getNumero())
                 .dataInicio(contratoDTO.getDataInicio())
                 .dataTermino(contratoDTO.getDataTermino())
+                .qtdDePontosFuncao(contratoDTO.getQtdDePontosFuncao())
                 .valor(contratoDTO.getValor())
                 .descricao(contratoDTO.getDescricao())
-                .produtoOuServico(contratoDTO.getProdutoOuServico())
+                .tipoDeContrato(contratoDTO.getTipoDeContrato())
                 .build();
 
         return contratoRepository.save(novoContrato);
@@ -51,13 +55,15 @@ public class ContratoServiceImpl implements ContratoService {
         Contrato contratoAtualizado = encontrarPeloIdContrato(id);
 
         log.info("Contrato com ID:'{}' Sendo Atualizado '{}'",id,contratoDTO);
+
         contratoAtualizado.setDataInicio(contratoDTO.getDataInicio());
         contratoAtualizado.setDataTermino(contratoDTO.getDataTermino());
         contratoAtualizado.setValor(contratoDTO.getValor());
         contratoAtualizado.setDescricao(contratoDTO.getDescricao());
-        contratoAtualizado.setProdutoOuServico(contratoDTO.getProdutoOuServico());
+        contratoAtualizado.setTipoDeContrato(contratoDTO.getTipoDeContrato());
 
         log.info("Contrato com ID: '{}' Foi Atualizado '{}'",id,contratoDTO);
+
         return contratoRepository.save(contratoAtualizado);
     }
 
@@ -65,9 +71,11 @@ public class ContratoServiceImpl implements ContratoService {
     public void deletarContrato(Long id) {
 
         log.info("Contrato com ID:'{}' Sendo Inativado",id);
+
         Contrato contratoDeletado = encontrarPeloIdContrato(id);
 
         log.info("Contrato com ID:'{}' Foi Inativado",id);
+
         contratoRepository.delete(contratoDeletado);
     }
 }

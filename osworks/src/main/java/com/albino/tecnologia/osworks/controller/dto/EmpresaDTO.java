@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CNPJ;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.*;
 import java.time.LocalDate;
@@ -27,6 +28,7 @@ public class EmpresaDTO {
     @Size(min = 5, max = 50, message = "'${validatedValue}' precisa estar entre {min} caracteres")
     private String razaoSocial;
 
+    @Positive(message = "O Campo Tipo De Empresa Precisa Ser Positivo")
     private TipoDeEmpresa tipoDeEmpresa;
 
     @NotBlank(message = "Prencha o Campo Inscrição Estadual Corretamente")
@@ -41,8 +43,7 @@ public class EmpresaDTO {
     @Email(message = "Prencha o Campo Email Corretamente")
     private String email;
 
-
-    @Past(message = "Data De Nascimento '${validatedValue}' é Invalida")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataDeNascimento;
 
     private Responsavel responsavel;

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -38,7 +39,7 @@ public class ProjetoController {
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_GPP')")
-    public ResponseEntity<Projeto> criarProjeto(@RequestBody ProjetoDTO projetoDTO) {
+    public ResponseEntity<Projeto> criarProjeto(@Valid @RequestBody ProjetoDTO projetoDTO) {
 
         Projeto projetoCriado = projetoService.criarProjeto(projetoDTO);
 

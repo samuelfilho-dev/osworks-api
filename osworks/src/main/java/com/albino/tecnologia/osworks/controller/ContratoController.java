@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -44,7 +45,7 @@ public class ContratoController {
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
-    public ResponseEntity<Contrato> criarContrato(@RequestBody ContratoDTO contratoDTO){
+    public ResponseEntity<Contrato> criarContrato(@Valid @RequestBody ContratoDTO contratoDTO){
 
         log.info("Criando Um Contrato");
 
