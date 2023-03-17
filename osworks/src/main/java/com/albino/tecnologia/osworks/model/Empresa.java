@@ -20,7 +20,7 @@ public class Empresa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true)
-    private String CNPJ;
+    private String cnpj;
     private TipoDeEmpresa tipoDeEmpresa;
     private String razaoSocial;
     private String inscricaoEstadual;

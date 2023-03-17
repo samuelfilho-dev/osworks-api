@@ -66,12 +66,13 @@ public class EmpresaServiceImpl implements EmpresaService {
                 .email(empresaDTO.getResponsavel().getEmail())
                 .departamento(empresaDTO.getResponsavel().getDepartamento())
                 .cargo(empresaDTO.getResponsavel().getCargo())
+                .endereco(empresaDTO.getResponsavel().getEndereco())
                 .build();
 
         log.info("Nova Empresa Criada '{}'", empresaDTO);
 
         Empresa novaEmpresa = Empresa.builder()
-                .CNPJ(empresaDTO.getCnpj())
+                .cnpj(empresaDTO.getCnpj())
                 .razaoSocial(empresaDTO.getRazaoSocial())
                 .inscricaoEstadual(empresaDTO.getInscricaoEstadual())
                 .numeroDeTelefone(empresaDTO.getNumeroDeTelefone())

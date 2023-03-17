@@ -26,10 +26,12 @@ public class OS {
     private LocalDate dataDeAbertura;
     @OneToOne
     private Responsavel responsavel;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "empresa_id")
     private Empresa empresa;
-    @OneToOne
-    private Projeto projeto;
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "contrato_id")
     private Contrato contrato;
+
 }

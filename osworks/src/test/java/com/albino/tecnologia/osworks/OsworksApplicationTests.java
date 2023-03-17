@@ -8,6 +8,7 @@ class OsworksApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 	}
 
 }

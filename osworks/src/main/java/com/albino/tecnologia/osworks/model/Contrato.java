@@ -1,6 +1,7 @@
 package com.albino.tecnologia.osworks.model;
 
 import com.albino.tecnologia.osworks.enums.TipoDeContrato;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,12 +18,13 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Contrato {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String numero;
+    private String codigoDoContrato;
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "empresa_id")
     private Empresa empresa;
@@ -31,6 +34,11 @@ public class Contrato {
     private BigDecimal valor;
     private String descricao;
     private TipoDeContrato tipoDeContrato;
-    @OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL)
-    private List<OS> os;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "contrato_id")
+    @JsonIgnoreProperties("contrato")
+    private List<OS> os = new ArrayList<>();
+    @OneToOne
+    @JoinColumn(name = "responsavel_id")
+    private Responsavel responsavel;
 }

@@ -25,7 +25,7 @@ public class Responsavel {
     private String email;
     private String departamento;
     private String cargo;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Endereco endereco;
 
 }

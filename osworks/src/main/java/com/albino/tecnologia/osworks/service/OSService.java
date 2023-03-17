@@ -8,7 +8,7 @@ import java.util.List;
 public interface OSService {
     OS encontrarPeloId(Long id);
     List<OS> listarTodasOS();
-    OS criarOS(OSDTO osdto);
+    OS criarOS(Long id,OSDTO osdto);
     OS atualizarOS(Long id,OSDTO osdto);
     void deletarOS(Long id);
 }

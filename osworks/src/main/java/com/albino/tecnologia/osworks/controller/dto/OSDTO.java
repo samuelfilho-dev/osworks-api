@@ -28,7 +28,13 @@ public class OSDTO {
     @Positive(message = "OS Pontos De Função Precisam ser Positivos")
     private Integer qtdPontosDeFuncao;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private LocalDate dataDeAbertura;
+    @Positive
+    private Long idDoResponsavel;
+
+    @Positive
+    private Long idDaEmpresa;
+
+    @Positive
+    private Long idDoContrato;
 
 }

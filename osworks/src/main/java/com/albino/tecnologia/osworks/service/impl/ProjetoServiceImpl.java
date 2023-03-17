@@ -1,8 +1,12 @@
 package com.albino.tecnologia.osworks.service.impl;
 
 import com.albino.tecnologia.osworks.controller.dto.ProjetoDTO;
+import com.albino.tecnologia.osworks.model.OS;
 import com.albino.tecnologia.osworks.model.Projeto;
+import com.albino.tecnologia.osworks.model.Usuario;
+import com.albino.tecnologia.osworks.repository.OSRepository;
 import com.albino.tecnologia.osworks.repository.ProjetoRepository;
+import com.albino.tecnologia.osworks.repository.UsuarioRepository;
 import com.albino.tecnologia.osworks.service.ProjetoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -16,6 +20,8 @@ import java.util.List;
 public class ProjetoServiceImpl implements ProjetoService {
 
     private final ProjetoRepository projetoRepository;
+    private final OSRepository osRepository;
+    private final UsuarioRepository usuarioRepository;
 
     @Override
     public Projeto encontrarPeloId(Long id) {
@@ -36,10 +42,16 @@ public class ProjetoServiceImpl implements ProjetoService {
     public Projeto criarProjeto(ProjetoDTO projetoDTO) {
 
         log.info("Novo Projeto Criado '{}'", projetoDTO);
+
+        OS os = osRepository.findById(projetoDTO.getIdDaOs()).get();
+        Usuario usuario = usuarioRepository.findById(projetoDTO.getIdDoUsuario()).get();
+
         Projeto novoProjeto = Projeto.builder()
                 .nome(projetoDTO.getNome())
                 .descricao(projetoDTO.getDescricao())
                 .dataDeInicio(projetoDTO.getDataDeInicio())
+                .os(os)
+                .usuario(usuario)
                 .dataDeTermino(projetoDTO.getDataDeTermino())
                 .status(projetoDTO.getStatus())
                 .build();
@@ -60,6 +72,15 @@ public class ProjetoServiceImpl implements ProjetoService {
 
         log.info("Projeto de ID:'{}' Foi Atualizado '{}'", id, projetoDTO);
         return projetoRepository.save(projetoAtualizado);
+    }
+
+    @Override
+    public void distribuirProjeto(Projeto projeto, Long id) {
+
+        Projeto projetoDistribuido = encontrarPeloId(projeto.getId());
+        Usuario usuario = usuarioRepository.findById(id).get();
+
+        projetoDistribuido.setUsuario(usuario);
     }
 
     @Override

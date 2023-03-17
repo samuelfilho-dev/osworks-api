@@ -21,14 +21,14 @@ public class EmpresaDTO {
 
     @CNPJ
     @NotBlank(message = "Prencha o Campo CNPJ Corretamente")
-    @Size(min = 20, max = 50, message = "'${validatedValue}' precisa estar entre {min} caracteres")
+    @Size(min = 2, max = 50, message = "'${validatedValue}' precisa estar entre {min} caracteres")
     private String cnpj;
 
     @NotBlank(message = "Prencha o Campo Razão Social Corretamente")
     @Size(min = 5, max = 50, message = "'${validatedValue}' precisa estar entre {min} caracteres")
     private String razaoSocial;
 
-    @Positive(message = "O Campo Tipo De Empresa Precisa Ser Positivo")
+
     private TipoDeEmpresa tipoDeEmpresa;
 
     @NotBlank(message = "Prencha o Campo Inscrição Estadual Corretamente")
@@ -46,7 +46,9 @@ public class EmpresaDTO {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataDeNascimento;
 
+    @NotNull(message = "Algum Campo Do Responsavel Está Nulo")
     private Responsavel responsavel;
 
+    @NotNull(message = "Algum Campo Do Endereco Está Nulo")
     private Endereco endereco;
 }

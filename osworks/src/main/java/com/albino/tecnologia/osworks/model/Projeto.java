@@ -24,5 +24,7 @@ public class Projeto {
     private LocalDate dataDeTermino;
     private String status;
     @OneToOne
+    private OS os;
+    @OneToOne
     private Usuario usuario;
 }

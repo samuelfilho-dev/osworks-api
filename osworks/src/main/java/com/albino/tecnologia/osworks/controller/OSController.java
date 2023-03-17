@@ -36,11 +36,11 @@ public class OSController {
         return ResponseEntity.ok(osList);
     }
 
-    @PostMapping
+    @PostMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_GP')")
-    public ResponseEntity<OS> criarOS(@Valid @RequestBody OSDTO osdto){
+    public ResponseEntity<OS> criarOS(@PathVariable Long id,@Valid @RequestBody OSDTO osdto){
 
-        OS osCriada = osService.criarOS(osdto);
+        OS osCriada = osService.criarOS(id,osdto);
 
         return new ResponseEntity<>(osCriada, HttpStatus.CREATED);
     }

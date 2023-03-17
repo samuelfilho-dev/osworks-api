@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
@@ -33,4 +34,10 @@ public class ProjetoDTO {
     @NotBlank(message = "Prencha o Campo Status Do Projeto Corretamente")
     @Size(min = 3, max = 15, message = "'${validatedValue}' precisa estar entre {min} caracteres")
     private String status;
+
+    @Positive
+    private Long idDaOs;
+
+    @Positive
+    private Long idDoUsuario;
 }
