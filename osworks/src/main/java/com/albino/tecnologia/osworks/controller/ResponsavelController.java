@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -37,7 +38,7 @@ public class ResponsavelController {
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
-    public ResponseEntity<Responsavel> criarResponsavel(@RequestBody ResponsavelDTO responsavelDTO) {
+    public ResponseEntity<Responsavel> criarResponsavel(@Valid @RequestBody ResponsavelDTO responsavelDTO) {
 
         Responsavel responsavelCriado = responsavelService.criarResponsavel(responsavelDTO);
 

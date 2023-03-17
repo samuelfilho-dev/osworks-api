@@ -36,13 +36,13 @@ public class EnderecoServiceImpl implements  EnderecoService {
 
         log.info("Novo Endereco Criado '{}'", enderecoDTO);
         Endereco novoEndereco = Endereco.builder()
-                .CEP(enderecoDTO.getCEP())
+                .CEP(enderecoDTO.getCep())
                 .logradouro(enderecoDTO.getLogradouro())
                 .numero(enderecoDTO.getNumero())
                 .complemento(enderecoDTO.getComplemento())
                 .bairro(enderecoDTO.getBairro())
                 .cidade(enderecoDTO.getCidade())
-                .UF(enderecoDTO.getUF())
+                .UF(enderecoDTO.getUf())
                 .build();
 
         return enderecoRepository.save(novoEndereco);
@@ -53,13 +53,13 @@ public class EnderecoServiceImpl implements  EnderecoService {
         Endereco enderecoAtualizado = encontrarPeloEndereco(id);
 
         log.info("Endereco de ID:'{}' Sendo Atualizada '{}", id, enderecoDTO);
-        enderecoAtualizado.setCEP(enderecoDTO.getCEP());
+        enderecoAtualizado.setCEP(enderecoDTO.getCep());
         enderecoAtualizado.setLogradouro(enderecoDTO.getLogradouro());
         enderecoAtualizado.setNumero(enderecoDTO.getNumero());
         enderecoAtualizado.setComplemento(enderecoDTO.getComplemento());
         enderecoAtualizado.setBairro(enderecoDTO.getBairro());
         enderecoAtualizado.setCidade(enderecoDTO.getCidade());
-        enderecoAtualizado.setUF(enderecoDTO.getUF());
+        enderecoAtualizado.setUF(enderecoDTO.getUf());
 
         log.info("Endereco de ID:'{}' Foi Atualizado '{}'",id, enderecoDTO);
         return enderecoRepository.save(enderecoAtualizado);

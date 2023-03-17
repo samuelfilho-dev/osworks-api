@@ -35,12 +35,11 @@ public class ResponsavelServiceImpl implements ResponsavelService {
 
         log.info("Novo Responsavel Criado '{}'", responsavelDTO);
         Responsavel novoResponsavel = Responsavel.builder()
-                .CPF(responsavelDTO.getCPF())
+                .cpf(responsavelDTO.getCpf())
                 .nome(responsavelDTO.getNome())
-                .Rg(responsavelDTO.getRg())
-                .numTelefone(responsavelDTO.getNumTelefone())
+                .rg(responsavelDTO.getRg())
+                .numTelefone(responsavelDTO.getNumDeTelefone())
                 .email(responsavelDTO.getEmail())
-                .endereco(responsavelDTO.getEndereco())
                 .departamento(responsavelDTO.getDepartamento())
                 .cargo(responsavelDTO.getCargo())
                 .build();
@@ -50,15 +49,15 @@ public class ResponsavelServiceImpl implements ResponsavelService {
 
     @Override
     public Responsavel atualizarResponsavel(Long id,ResponsavelDTO responsavelDTO) {
+
         Responsavel responsavelAtualizado = encontrarPeloIdResponsavel(id);
 
         log.info("Responsavel de ID:'{}' sendo Atualizado '{}'", id, responsavelDTO);
-        responsavelAtualizado.setCPF(responsavelDTO.getCPF());
+        responsavelAtualizado.setCpf(responsavelDTO.getCpf());
         responsavelAtualizado.setNome(responsavelDTO.getNome());
         responsavelAtualizado.setRg(responsavelDTO.getRg());
-        responsavelAtualizado.setNumTelefone(responsavelDTO.getNumTelefone());
+        responsavelAtualizado.setNumTelefone(responsavelDTO.getNumDeTelefone());
         responsavelAtualizado.setEmail(responsavelDTO.getEmail());
-        responsavelAtualizado.setEndereco(responsavelDTO.getEndereco());
         responsavelAtualizado.setDepartamento(responsavelDTO.getDepartamento());
         responsavelAtualizado.setCargo(responsavelDTO.getCargo());
 

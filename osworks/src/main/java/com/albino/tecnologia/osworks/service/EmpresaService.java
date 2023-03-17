@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface EmpresaService {
     Empresa encontrarPeloId(Long id);
-    List<Empresa> listarTodasEmpresas();
+    List<Empresa> listarTodasEmpresas(String status);
     Empresa criarEmpresa(EmpresaDTO empresaDTO);
     Empresa atualizarEmpresa(Long id,EmpresaDTO empresaDTO);
     void deletarEmpresa(Long id);

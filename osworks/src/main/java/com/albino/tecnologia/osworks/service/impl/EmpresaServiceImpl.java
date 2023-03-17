@@ -1,7 +1,10 @@
 package com.albino.tecnologia.osworks.service.impl;
 
 import com.albino.tecnologia.osworks.controller.dto.EmpresaDTO;
+import com.albino.tecnologia.osworks.exception.BadResquestException;
 import com.albino.tecnologia.osworks.model.Empresa;
+import com.albino.tecnologia.osworks.model.Endereco;
+import com.albino.tecnologia.osworks.model.Responsavel;
 import com.albino.tecnologia.osworks.repository.EmpresaRespository;
 import com.albino.tecnologia.osworks.service.EmpresaService;
 import lombok.RequiredArgsConstructor;
@@ -21,28 +24,61 @@ public class EmpresaServiceImpl implements EmpresaService {
     public Empresa encontrarPeloId(Long id) {
 
         log.info("Empresa com ID:'{}' Encontrada", id);
+
        return empresaRespository.findById(id)
-               .orElseThrow(()-> new RuntimeException("Id Não Encontrado"));
+               .orElseThrow(()-> new BadResquestException("Empresa Não Encontrada"));
     }
 
     @Override
-    public List<Empresa> listarTodasEmpresas() {
+    public List<Empresa> listarTodasEmpresas(String status) {
+
+        if (status == null){
+            log.info("Listando Todas as Empresas");
+            return empresaRespository.findAll();
+        }
 
         log.info("Listando Todas as Empresas");
-        return empresaRespository.findAll();
+        return empresaRespository.findByStatus(status);
     }
 
     @Override
     public Empresa criarEmpresa(EmpresaDTO empresaDTO) {
 
+        log.info("Novo Endereço Criado '{}' ", empresaDTO.getEndereco());
+
+        Endereco enderecoDaEmpresa = Endereco.builder()
+                .CEP(empresaDTO.getEndereco().getCEP())
+                .logradouro(empresaDTO.getEndereco().getLogradouro())
+                .numero(empresaDTO.getEndereco().getNumero())
+                .complemento(empresaDTO.getEndereco().getComplemento())
+                .bairro(empresaDTO.getEndereco().getBairro())
+                .cidade(empresaDTO.getEndereco().getCidade())
+                .UF(empresaDTO.getEndereco().getUF())
+                .build();
+
+        log.info("Novo Responsavel Criado '{}' ", empresaDTO.getEndereco());
+
+        Responsavel responsavelDaEmpresa = Responsavel.builder()
+                .cpf(empresaDTO.getResponsavel().getCpf())
+                .nome(empresaDTO.getResponsavel().getNome())
+                .rg(empresaDTO.getResponsavel().getRg())
+                .numTelefone(empresaDTO.getResponsavel().getNumTelefone())
+                .email(empresaDTO.getResponsavel().getEmail())
+                .departamento(empresaDTO.getResponsavel().getDepartamento())
+                .cargo(empresaDTO.getResponsavel().getCargo())
+                .build();
+
         log.info("Nova Empresa Criada '{}'", empresaDTO);
+
         Empresa novaEmpresa = Empresa.builder()
-                .CNPJ(empresaDTO.getCNPJ())
+                .CNPJ(empresaDTO.getCnpj())
                 .razaoSocial(empresaDTO.getRazaoSocial())
                 .inscricaoEstadual(empresaDTO.getInscricaoEstadual())
                 .numeroDeTelefone(empresaDTO.getNumeroDeTelefone())
                 .tipoDeEmpresa(empresaDTO.getTipoDeEmpresa())
                 .email(empresaDTO.getEmail())
+                .endereco(enderecoDaEmpresa)
+                .responsavel(responsavelDaEmpresa)
                 .dataDeNascimento(empresaDTO.getDataDeNascimento())
                 .build();
 
@@ -66,10 +102,14 @@ public class EmpresaServiceImpl implements EmpresaService {
 
     @Override
     public void deletarEmpresa(Long id) {
+
         log.info("Empresa de ID:'{}' Sendo Inativada", id);
+
         Empresa empresaDeletada = encontrarPeloId(id);
 
+        empresaDeletada.setStatus("inativa");
+        log.info(empresaDeletada);
+
         log.info("Empresa de ID:'{}' Foi Inativada", id);
-        empresaRespository.delete(empresaDeletada);
     }
 }

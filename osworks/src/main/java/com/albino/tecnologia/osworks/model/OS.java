@@ -1,11 +1,11 @@
 package com.albino.tecnologia.osworks.model;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -24,5 +24,12 @@ public class OS {
     private LocalTime qtdDeHoras;
     private Integer qtdPontosDeFuncao;
     private LocalDate dataDeAbertura;
-
+    @OneToOne
+    private Responsavel responsavel;
+    @ManyToOne
+    private Empresa empresa;
+    @OneToOne
+    private Projeto projeto;
+    @ManyToOne
+    private Contrato contrato;
 }

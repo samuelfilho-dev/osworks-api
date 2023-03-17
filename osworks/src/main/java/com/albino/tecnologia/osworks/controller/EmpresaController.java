@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -29,9 +30,9 @@ public class EmpresaController {
 
     @GetMapping
     @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
-    public ResponseEntity<List<Empresa>> listarTodasEmpresas(){
+    public ResponseEntity<List<Empresa>> listarTodasEmpresas(@RequestParam(value = "status",required = false) String status){
 
-        List<Empresa> empresaList = empresaService.listarTodasEmpresas();
+        List<Empresa> empresaList = empresaService.listarTodasEmpresas(status);
 
         return ResponseEntity.ok(empresaList);
 
@@ -39,7 +40,7 @@ public class EmpresaController {
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
-    public ResponseEntity<Empresa> criarEmpresa(@RequestBody EmpresaDTO empresaDTO){
+    public ResponseEntity<Empresa> criarEmpresa(@Valid @RequestBody EmpresaDTO empresaDTO){
 
         Empresa empresaCriada = empresaService.criarEmpresa(empresaDTO);
 

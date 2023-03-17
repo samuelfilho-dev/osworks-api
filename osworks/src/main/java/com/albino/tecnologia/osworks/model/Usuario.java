@@ -33,7 +33,7 @@ public class Usuario implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
 
-    private LocalDateTime dataDeCriacao = LocalDateTime.now();
+    private LocalDateTime dataDeCriacao;
 
     private LocalDateTime ultimoAcesso;
 

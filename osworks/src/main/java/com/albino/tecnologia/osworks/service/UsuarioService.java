@@ -11,4 +11,7 @@ public interface UsuarioService {
     Usuario criarUsuario(UsuarioDTO usuarioDTO);
     Usuario atualizarUsuario(Long id,UsuarioDTO usuarioDTO);
     void inativarUsuario(Long id);
+    Usuario trocarSenha(Long id, UsuarioDTO usuarioDTO);
+    Usuario trocarSenhaPorUsername(String username, UsuarioDTO usuarioDTO);
+    Usuario trocarSenhaPorEmail(String email, UsuarioDTO usuarioDTO);
 }

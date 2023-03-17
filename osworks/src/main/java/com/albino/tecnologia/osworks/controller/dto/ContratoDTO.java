@@ -1,8 +1,6 @@
 package com.albino.tecnologia.osworks.controller.dto;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,8 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ContratoDTO {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private String numero;
     private LocalDate dataInicio;
     private LocalDate dataTermino;
