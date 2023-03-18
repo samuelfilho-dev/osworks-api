@@ -21,7 +21,7 @@ public class ContratoController {
     private final ContratoServiceImpl contratoService;
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
+    @PreAuthorize("hasAnyRole('ROLE_FINANCEIRO','ROLE_DIRETOR','ROLE_GP')")
     public ResponseEntity<Contrato> encontrarPeloIdContrato(@PathVariable Long id){
 
         log.info("Retornando um Contrato");
@@ -33,7 +33,7 @@ public class ContratoController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
+    @PreAuthorize("hasAnyRole('ROLE_FINANCEIRO','ROLE_DIRETOR','ROLE_GP')")
     public ResponseEntity<List<Contrato>> listarTodosContratos(){
 
         log.info("Retornando um Todos Contratos");

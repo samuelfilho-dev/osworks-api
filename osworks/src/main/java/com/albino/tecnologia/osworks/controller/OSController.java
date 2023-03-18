@@ -20,7 +20,7 @@ public class OSController {
     private final OSServiceImpl osService;
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_GP')")
+    @PreAuthorize("hasAnyRole('ROLE_GP','ROLE_DIRETOR')")
     public ResponseEntity<OS> encontrarPeloId(@PathVariable Long id){
         OS os = osService.encontrarPeloId(id);
 
@@ -28,7 +28,7 @@ public class OSController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ROLE_GP')")
+    @PreAuthorize("hasAnyRole('ROLE_GP','ROLE_DIRETOR')")
     public ResponseEntity<List<OS>> listarTodasOS(){
 
         List<OS> osList = osService.listarTodasOS();
