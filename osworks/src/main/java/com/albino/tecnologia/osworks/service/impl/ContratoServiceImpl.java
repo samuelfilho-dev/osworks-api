@@ -4,9 +4,11 @@ import com.albino.tecnologia.osworks.controller.dto.ContratoDTO;
 import com.albino.tecnologia.osworks.model.Contrato;
 import com.albino.tecnologia.osworks.model.Empresa;
 import com.albino.tecnologia.osworks.model.Responsavel;
+import com.albino.tecnologia.osworks.model.Usuario;
 import com.albino.tecnologia.osworks.repository.ContratoRepository;
 import com.albino.tecnologia.osworks.repository.EmpresaRespository;
 import com.albino.tecnologia.osworks.repository.ResponsavelRepository;
+import com.albino.tecnologia.osworks.repository.UsuarioRepository;
 import com.albino.tecnologia.osworks.service.ContratoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -22,6 +24,7 @@ public class ContratoServiceImpl implements ContratoService {
     private final ContratoRepository contratoRepository;
     private final EmpresaRespository empresaRespository;
     private final ResponsavelRepository responsavelRepository;
+    private final UsuarioRepository usuarioRepository;
 
     @Override
     public Contrato encontrarPeloIdContrato(Long id) {
@@ -51,6 +54,7 @@ public class ContratoServiceImpl implements ContratoService {
         Empresa empresa = empresaRespository.findById(contratoDTO.getIdDaEmpresa()).get();
         Responsavel responsavel = responsavelRepository.findById(contratoDTO.getIdDoResponsavel()).get();
 
+
         Contrato novoContrato = Contrato.builder()
                 .codigoDoContrato(codigoDoContrato)
                 .dataInicio(contratoDTO.getDataInicio())
@@ -68,6 +72,7 @@ public class ContratoServiceImpl implements ContratoService {
 
     @Override
     public Contrato atualizarContrato(Long id,ContratoDTO contratoDTO) {
+
         Contrato contratoAtualizado = encontrarPeloIdContrato(id);
 
         log.info("Contrato com ID:'{}' Sendo Atualizado '{}'",id,contratoDTO);
@@ -79,6 +84,19 @@ public class ContratoServiceImpl implements ContratoService {
         contratoAtualizado.setTipoDeContrato(contratoDTO.getTipoDeContrato());
 
         log.info("Contrato com ID: '{}' Foi Atualizado '{}'",id,contratoDTO);
+
+        return contratoRepository.save(contratoAtualizado);
+    }
+
+    @Override
+    public Contrato distribuirContrato(Long id, ContratoDTO contratoDTO) {
+
+        Contrato contratoAtualizado = encontrarPeloIdContrato(id);
+        Usuario usuario = usuarioRepository.findById(contratoDTO.getIdDoUsuario()).get();
+
+        log.info("Contrato com ID:'{}' Foi Repasado Para '{}'",id,usuario);
+
+        contratoAtualizado.setUsuario(usuario);
 
         return contratoRepository.save(contratoAtualizado);
     }

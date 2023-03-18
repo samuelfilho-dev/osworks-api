@@ -41,9 +41,12 @@ public class ContratoDTO {
 
     private TipoDeContrato tipoDeContrato;
 
-    @Positive
+    @Positive(message = "O id Da Empresa Deverá Ser Positivo")
     private Long idDaEmpresa;
 
-    @Positive
+    @Positive(message = "O id Do Responsavel Deverá Ser Positivo")
     private Long idDoResponsavel;
+
+    @Positive
+    private Long idDoUsuario;
 }

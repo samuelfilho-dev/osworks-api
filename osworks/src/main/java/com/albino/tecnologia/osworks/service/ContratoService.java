@@ -10,5 +10,6 @@ public interface ContratoService {
     List<Contrato> listarTodosContratos();
     Contrato criarContrato(ContratoDTO contratoDTO);
     Contrato atualizarContrato(Long id,ContratoDTO contratoDTO);
+    Contrato distribuirContrato(Long id,ContratoDTO contratoDTO);
     void deletarContrato(Long id);
 }

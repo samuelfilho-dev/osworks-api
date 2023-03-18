@@ -31,6 +31,7 @@ public class ProjetoServiceImpl implements ProjetoService {
                 .orElseThrow(() -> new RuntimeException("ID não encontrado"));
     }
 
+
     @Override
     public List<Projeto> listarTodosProjetos() {
 
