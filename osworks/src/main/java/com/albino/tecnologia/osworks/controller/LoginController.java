@@ -21,7 +21,11 @@ public class LoginController {
     private final PasswordEncoder passwordEncoder;
 
     @PostMapping
-    public void login(@Valid @RequestBody LoginDTO loginDTO){
+    public Boolean login(@Valid @RequestBody LoginDTO loginDTO){
 
+        Usuario usuario = usuarioRepository.findByUsername(loginDTO.getUsername()).get();
+        boolean matches = passwordEncoder.matches(loginDTO.getPassword(), usuario.getPassword());
+
+        return matches;
     }
 }
