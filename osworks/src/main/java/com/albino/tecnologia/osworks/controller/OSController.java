@@ -4,6 +4,8 @@ import com.albino.tecnologia.osworks.controller.dto.OSDTO;
 import com.albino.tecnologia.osworks.model.OS;
 import com.albino.tecnologia.osworks.service.impl.OSServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,9 +31,9 @@ public class OSController {
 
     @GetMapping
     @PreAuthorize("hasAnyRole('ROLE_GP','ROLE_DIRETOR')")
-    public ResponseEntity<List<OS>> listarTodasOS(){
+    public ResponseEntity<Page<OS>> listarTodasOS(Pageable pageable){
 
-        List<OS> osList = osService.listarTodasOS();
+        Page<OS> osList = osService.listarTodasOS(pageable);
 
         return ResponseEntity.ok(osList);
     }

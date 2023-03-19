@@ -4,6 +4,8 @@ import com.albino.tecnologia.osworks.controller.dto.ResponsavelDTO;
 import com.albino.tecnologia.osworks.model.Responsavel;
 import com.albino.tecnologia.osworks.service.impl.ResponsavelServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,9 +31,9 @@ public class ResponsavelController {
 
     @GetMapping
     @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
-    public ResponseEntity<List<Responsavel>> listarTodosResponsaveis() {
+    public ResponseEntity<Page<Responsavel>> listarTodosResponsaveis(Pageable pageable) {
 
-        List<Responsavel> responsavelList = responsavelService.listarTodosResponsaveis();
+        Page<Responsavel> responsavelList = responsavelService.listarTodosResponsaveis(pageable);
 
         return ResponseEntity.ok(responsavelList);
     }
