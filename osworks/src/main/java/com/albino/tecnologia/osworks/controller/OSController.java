@@ -58,9 +58,9 @@ public class OSController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_GP')")
-    public ResponseEntity<Void> deletarOS(@PathVariable Long id){
+    public ResponseEntity<Void> inativarOS(@PathVariable Long id){
 
-        osService.deletarOS(id);
+        osService.inativarOS(id);
 
         return ResponseEntity.noContent().build();
     }

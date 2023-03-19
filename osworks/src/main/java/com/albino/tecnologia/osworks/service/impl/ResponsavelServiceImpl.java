@@ -68,12 +68,13 @@ public class ResponsavelServiceImpl implements ResponsavelService {
     }
 
     @Override
-    public void deletarResponsavel(Long id) {
+    public void inativarResponsavel(Long id) {
 
         log.info("Responsavel com ID:'{}' sendo Inativado", id);
-        Responsavel responsavelDeletado = encontrarPeloIdResponsavel(id);
+
+        Responsavel responsavelInativado = encontrarPeloIdResponsavel(id);
+        responsavelInativado.setStatus("Inativo");
 
         log.info("Responsavel com ID:'{}' foi Inativado", id);
-        responsavelRepository.delete(responsavelDeletado);
     }
 }

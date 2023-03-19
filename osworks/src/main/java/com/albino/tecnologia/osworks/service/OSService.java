@@ -12,5 +12,5 @@ public interface OSService {
     Page<OS> listarTodasOS(Pageable pageable);
     OS criarOS(Long id,OSDTO osdto);
     OS atualizarOS(Long id,OSDTO osdto);
-    void deletarOS(Long id);
+    void inativarOS(Long id);
 }

@@ -15,5 +15,6 @@ public interface ProjetoService {
     Projeto criarProjeto(ProjetoDTO projetoDTO);
     Projeto atualizarProjeto(Long id,ProjetoDTO projetoDTO);
     void distribuirProjeto(Projeto projeto, Long id);
-    void deletarProjeto(Long id);
+
+    void inativarProjeto(Long id);
 }

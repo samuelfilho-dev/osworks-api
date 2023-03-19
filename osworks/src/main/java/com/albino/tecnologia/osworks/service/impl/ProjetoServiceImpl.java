@@ -14,8 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 @Log4j2
@@ -87,11 +85,12 @@ public class ProjetoServiceImpl implements ProjetoService {
     }
 
     @Override
-    public void deletarProjeto(Long id) {
+    public void inativarProjeto(Long id) {
         log.info("Projeto de ID:'{}' Sendo Inativado", id);
-        Projeto projetoDeletado = encontrarPeloId(id);
+
+        Projeto projetoInativado = encontrarPeloId(id);
+        projetoInativado.setStatus("Inativo");
 
         log.info("Projeto de ID:'{}' Foi Inativado", id);
-        projetoRepository.delete(projetoDeletado);
     }
 }

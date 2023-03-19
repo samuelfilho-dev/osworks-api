@@ -34,6 +34,7 @@ public class Contrato {
     private BigDecimal valor;
     private String descricao;
     private TipoDeContrato tipoDeContrato;
+    private String status;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "contrato_id")
     @JsonIgnoreProperties("contrato")

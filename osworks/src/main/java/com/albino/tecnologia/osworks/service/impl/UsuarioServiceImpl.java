@@ -96,7 +96,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 
         Usuario usuarioInativado = encontrarPeloId(id);
-
         usuarioInativado.setStatus("Inativo");
 
         log.info("O Usuario '{}' Foi Inativado", usuarioInativado);

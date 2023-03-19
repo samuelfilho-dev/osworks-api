@@ -24,6 +24,7 @@ public class OS {
     private LocalTime qtdDeHoras;
     private Integer qtdPontosDeFuncao;
     private LocalDate dataDeAbertura;
+    private String status;
     @OneToOne
     private Responsavel responsavel;
     @ManyToOne(fetch = FetchType.EAGER)

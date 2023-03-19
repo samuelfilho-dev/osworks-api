@@ -68,11 +68,12 @@ public class EnderecoServiceImpl implements  EnderecoService {
     }
 
     @Override
-    public void deletarEndereco(Long id) {
+    public void inativarEndereco(Long id) {
         log.info("Endereco de ID:'{}' Sendo Inativado", id);
-        Endereco enderecoDeletado = encontrarPeloEndereco(id);
+
+        Endereco enderecoInativado = encontrarPeloEndereco(id);
+        enderecoInativado.setStatus("Inativo");
 
         log.info("Endereco de ID:'{}' Foi Inativado", id);
-        enderecoRepository.delete(enderecoDeletado);
     }
 }

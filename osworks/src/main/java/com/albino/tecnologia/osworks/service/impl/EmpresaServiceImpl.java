@@ -102,14 +102,13 @@ public class EmpresaServiceImpl implements EmpresaService {
     }
 
     @Override
-    public void deletarEmpresa(Long id) {
+    public void inativarEmpresa(Long id) {
 
         log.info("Empresa de ID:'{}' Sendo Inativada", id);
 
-        Empresa empresaDeletada = encontrarPeloId(id);
+        Empresa empresaInativada = encontrarPeloId(id);
+        empresaInativada.setStatus("inativa");
 
-        empresaDeletada.setStatus("inativa");
-        log.info(empresaDeletada);
 
         log.info("Empresa de ID:'{}' Foi Inativada", id);
     }

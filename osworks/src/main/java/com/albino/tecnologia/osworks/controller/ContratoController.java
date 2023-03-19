@@ -96,11 +96,11 @@ public class ContratoController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
-    public ResponseEntity<Void> deletarContrato(@PathVariable Long id){
+    public ResponseEntity<Void> inativarContrato(@PathVariable Long id){
 
         log.info("Invativando Um Contrato");
 
-        contratoService.deletarContrato(id);
+        contratoService.inativarContrato(id);
 
         return ResponseEntity.noContent().build();
     }
