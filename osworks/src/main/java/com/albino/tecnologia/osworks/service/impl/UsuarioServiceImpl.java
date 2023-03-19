@@ -51,6 +51,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         log.info("Criando Um Novo Usuario '{}'", usuarioDTO.toString());
 
         Usuario novoUsuario = Usuario.builder()
+                .nome(usuarioDTO.getNome())
                 .username(usuarioDTO.getUsername())
                 .password(passwordEncoder.encode(usuarioDTO.getPassword()))
                 .email(usuarioDTO.getEmail())

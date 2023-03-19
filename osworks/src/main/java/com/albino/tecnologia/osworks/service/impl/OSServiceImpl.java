@@ -1,6 +1,7 @@
 package com.albino.tecnologia.osworks.service.impl;
 
 import com.albino.tecnologia.osworks.controller.dto.OSDTO;
+import com.albino.tecnologia.osworks.exception.BadResquestException;
 import com.albino.tecnologia.osworks.model.Contrato;
 import com.albino.tecnologia.osworks.model.Empresa;
 import com.albino.tecnologia.osworks.model.OS;
@@ -39,8 +40,20 @@ public class OSServiceImpl implements OSService {
 
     @Override
     public Page<OS> listarTodasOS(Pageable pageable) {
+
         log.info("Listando Todas as OS");
+
         return osRepository.findAll(pageable);
+    }
+
+    @Override
+    public Contrato mostrarContratoDaOS(Long id) {
+
+        log.info("Contrato da OS com ID: ",id);
+
+        OS os = encontrarPeloId(id);
+
+        return os.getContrato();
     }
 
     @Override
@@ -53,6 +66,8 @@ public class OSServiceImpl implements OSService {
         Long qtdDePontosFuncao = contrato.getQtdDePontosFuncao();
         Long atualizarPontosDeFuncao = qtdDePontosFuncao - osdto.getQtdPontosDeFuncao();
         contrato.setQtdDePontosFuncao(atualizarPontosDeFuncao);
+
+        if (atualizarPontosDeFuncao <= 0 ) throw new BadResquestException("Contrato Sem Pontos De Função");
 
         Integer contador = geradorDeCodigoDaOS();
         String codigoDaOS = String.format("OS-Nº%05d", contador);

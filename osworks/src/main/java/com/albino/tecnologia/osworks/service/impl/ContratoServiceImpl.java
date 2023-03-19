@@ -2,10 +2,12 @@ package com.albino.tecnologia.osworks.service.impl;
 
 import com.albino.tecnologia.osworks.controller.dto.ContratoDTO;
 import com.albino.tecnologia.osworks.exception.BadResquestException;
-import com.albino.tecnologia.osworks.model.*;
+import com.albino.tecnologia.osworks.model.Contrato;
+import com.albino.tecnologia.osworks.model.Empresa;
+import com.albino.tecnologia.osworks.model.OS;
+import com.albino.tecnologia.osworks.model.Usuario;
 import com.albino.tecnologia.osworks.repository.ContratoRepository;
 import com.albino.tecnologia.osworks.repository.EmpresaRespository;
-import com.albino.tecnologia.osworks.repository.ResponsavelRepository;
 import com.albino.tecnologia.osworks.repository.UsuarioRepository;
 import com.albino.tecnologia.osworks.service.ContratoService;
 import lombok.RequiredArgsConstructor;
@@ -46,6 +48,8 @@ public class ContratoServiceImpl implements ContratoService {
     @Override
     public List<OS> listarOSDoContrato(Long id) {
 
+        log.info("Listando Todas OS Do Contrato com ID: '{}' ",id);
+
         Contrato contrato = encontrarPeloIdContrato(id);
 
         return contrato.getOs();
@@ -56,7 +60,27 @@ public class ContratoServiceImpl implements ContratoService {
 
         Usuario usuario = usuarioRepository.findById(id).get();
 
+        log.info("Listando Todos Contratos do Gerente De Projetos: '{}' ",usuario.getUsername());
+
         return contratoRepository.findByGerenteDeProjeto(usuario);
+    }
+
+    @Override
+    public List<Contrato> listarContratoPorDataDeVencimento(LocalDate dataDeVencimento) {
+
+        log.info("Listando Todos Contratos com a data de vencimento '{}' ",dataDeVencimento);
+
+        return contratoRepository.findByDataTermino(dataDeVencimento);
+    }
+
+    @Override
+    public Contrato relatorioDeConsumoDeContrato(Long id) {
+
+        List<Contrato> listaDeContratos = listarContratoPorGerenteDeProjeto(id);
+
+
+
+        return null;
     }
 
 
@@ -75,10 +99,12 @@ public class ContratoServiceImpl implements ContratoService {
                 .codigoDoContrato(codigoDoContrato)
                 .dataInicio(contratoDTO.getDataInicio())
                 .dataTermino(contratoDTO.getDataTermino())
+                .qtdTotalDePontosFuncao(contratoDTO.getQtdDePontosFuncao())
                 .qtdDePontosFuncao(contratoDTO.getQtdDePontosFuncao())
                 .valor(contratoDTO.getValor())
                 .descricao(contratoDTO.getDescricao())
                 .empresa(empresa)
+                .status("ativo")
                 .tipoDeContrato(contratoDTO.getTipoDeContrato())
                 .build();
 

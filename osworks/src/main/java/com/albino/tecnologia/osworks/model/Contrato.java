@@ -31,6 +31,7 @@ public class Contrato {
     private LocalDate dataInicio;
     private LocalDate dataTermino;
     private Long qtdDePontosFuncao;
+    private Long qtdTotalDePontosFuncao;
     private BigDecimal valor;
     private String descricao;
     private String status;

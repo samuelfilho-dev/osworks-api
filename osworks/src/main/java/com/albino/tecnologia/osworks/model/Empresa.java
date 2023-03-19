@@ -29,7 +29,7 @@ public class Empresa {
     private String numeroDeTelefone;
     private String email;
     private LocalDate dataDeNascimento;
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Endereco endereco;
     private String status;
 }

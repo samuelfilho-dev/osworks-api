@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api/v1/login")
@@ -24,6 +25,7 @@ public class LoginController {
     public Boolean login(@Valid @RequestBody LoginDTO loginDTO){
 
         Usuario usuario = usuarioRepository.findByUsername(loginDTO.getUsername()).get();
+        usuario.setUltimoAcesso(LocalDateTime.now());
         boolean matches = passwordEncoder.matches(loginDTO.getPassword(), usuario.getPassword());
 
         return matches;
