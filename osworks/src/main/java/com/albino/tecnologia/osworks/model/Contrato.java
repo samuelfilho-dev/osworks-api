@@ -36,7 +36,7 @@ public class Contrato {
     private String descricao;
     private String status;
     private TipoDeContrato tipoDeContrato;
-    private String status;
+//    private List<LocalDate> dataDeTermino = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "contrato_id")
     @JsonIgnoreProperties("contrato")

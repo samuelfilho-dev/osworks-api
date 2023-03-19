@@ -4,7 +4,6 @@ import com.albino.tecnologia.osworks.controller.dto.ContratoDTO;
 import com.albino.tecnologia.osworks.model.Contrato;
 import com.albino.tecnologia.osworks.model.OS;
 import com.albino.tecnologia.osworks.service.impl.ContratoServiceImpl;
-import io.swagger.models.auth.In;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -20,6 +19,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/api/v1/contrato")
 @RequiredArgsConstructor
 @Log4j2
