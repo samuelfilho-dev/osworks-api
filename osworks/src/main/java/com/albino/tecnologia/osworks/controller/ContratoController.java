@@ -8,12 +8,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -24,7 +26,7 @@ public class ContratoController {
     private final ContratoServiceImpl contratoService;
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_FINANCEIRO','ROLE_DIRETOR','ROLE_GP','ROLE_GPP')")
+    @PreAuthorize("hasAnyRole('ROLE_FINANCEIRO','ROLE_DIRETOR','ROLE_GPP')")
     public ResponseEntity<Contrato> encontrarPeloIdContrato(@PathVariable Long id){
 
         log.info("Retornando um Contrato");
@@ -36,7 +38,7 @@ public class ContratoController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ROLE_FINANCEIRO','ROLE_DIRETOR','ROLE_GP','ROLE_GPP')")
+    @PreAuthorize("hasAnyRole('ROLE_FINANCEIRO','ROLE_DIRETOR','ROLE_GPP')")
     public ResponseEntity<Page<Contrato>> listarTodosContratos(Pageable pageable){
 
         log.info("Retornando um Todos Contratos");
@@ -47,14 +49,52 @@ public class ContratoController {
     }
 
     @GetMapping("/os/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_GP','ROLE_GPP')")
+    @PreAuthorize("hasRole('ROLE_GPP')")
     public ResponseEntity<List<OS>> listarOSDoContrato(@PathVariable Long id){
 
-        log.info("Retornando um Contrato");
+        log.info("Retornando um Lista de OS do Contrato ");
 
         List<OS> osDoContrato = contratoService.listarOSDoContrato(id);
 
         return ResponseEntity.ok(osDoContrato);
+
+    }
+
+    @GetMapping("/vencimento")
+    @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
+    public ResponseEntity<List<Contrato>> listarContratoPorDataDeVencimento(
+            @Param("dataDeVencimento") LocalDate dataDeVencimento){
+
+        log.info("Retornando um Lista de OS do Contrato ");
+
+        List<Contrato> contratoPorDataDeVencimento =
+                contratoService.listarContratoPorDataDeVencimento(dataDeVencimento);
+
+        return ResponseEntity.ok(contratoPorDataDeVencimento);
+
+    }
+
+    @GetMapping("/gp/{id}")
+    @PreAuthorize("hasRole('ROLE_GP')")
+    public ResponseEntity<List<Contrato>> listarContratoPorGerenteDeProjeto(@PathVariable Long id){
+
+        log.info("Retornando uma Lista do Contrato De Com Gerente de Projeto Com ID: '{}' ",id);
+
+        List<Contrato> contratoPorGerenteDeProjeto = contratoService.listarContratoPorGerenteDeProjeto(id);
+
+        return ResponseEntity.ok(contratoPorGerenteDeProjeto);
+
+    }
+
+    @GetMapping("/gp/relatorio/{id}")
+    @PreAuthorize("hasRole('ROLE_GP')")
+    public ResponseEntity<Contrato> listarRelatorioDeContrato(@PathVariable Long id){
+
+        log.info("Retornando uma Lista do Contrato De Com Gerente de Projeto Com ID: '{}' ",id);
+
+
+
+        return null;
 
     }
 

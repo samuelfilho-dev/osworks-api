@@ -2,10 +2,12 @@ package com.albino.tecnologia.osworks.service.impl;
 
 import com.albino.tecnologia.osworks.controller.dto.ContratoDTO;
 import com.albino.tecnologia.osworks.exception.BadResquestException;
-import com.albino.tecnologia.osworks.model.*;
+import com.albino.tecnologia.osworks.model.Contrato;
+import com.albino.tecnologia.osworks.model.Empresa;
+import com.albino.tecnologia.osworks.model.OS;
+import com.albino.tecnologia.osworks.model.Usuario;
 import com.albino.tecnologia.osworks.repository.ContratoRepository;
 import com.albino.tecnologia.osworks.repository.EmpresaRespository;
-import com.albino.tecnologia.osworks.repository.ResponsavelRepository;
 import com.albino.tecnologia.osworks.repository.UsuarioRepository;
 import com.albino.tecnologia.osworks.service.ContratoService;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +26,6 @@ public class ContratoServiceImpl implements ContratoService {
     private static int id = 1;
     private final ContratoRepository contratoRepository;
     private final EmpresaRespository empresaRespository;
-    private final ResponsavelRepository responsavelRepository;
     private final UsuarioRepository usuarioRepository;
 
     @Override
@@ -47,9 +48,39 @@ public class ContratoServiceImpl implements ContratoService {
     @Override
     public List<OS> listarOSDoContrato(Long id) {
 
+        log.info("Listando Todas OS Do Contrato com ID: '{}' ",id);
+
         Contrato contrato = encontrarPeloIdContrato(id);
 
         return contrato.getOs();
+    }
+
+    @Override
+    public List<Contrato> listarContratoPorGerenteDeProjeto(Long id) {
+
+        Usuario usuario = usuarioRepository.findById(id).get();
+
+        log.info("Listando Todos Contratos do Gerente De Projetos: '{}' ",usuario.getUsername());
+
+        return contratoRepository.findByGerenteDeProjeto(usuario);
+    }
+
+    @Override
+    public List<Contrato> listarContratoPorDataDeVencimento(LocalDate dataDeVencimento) {
+
+        log.info("Listando Todos Contratos com a data de vencimento '{}' ",dataDeVencimento);
+
+        return contratoRepository.findByDataTermino(dataDeVencimento);
+    }
+
+    @Override
+    public Contrato relatorioDeConsumoDeContrato(Long id) {
+
+        List<Contrato> listaDeContratos = listarContratoPorGerenteDeProjeto(id);
+
+
+
+        return null;
     }
 
 
@@ -62,18 +93,18 @@ public class ContratoServiceImpl implements ContratoService {
         String codigoDoContrato = String.format("%03d/%d", contador, LocalDate.now().getYear());
 
         Empresa empresa = empresaRespository.findById(contratoDTO.getIdDaEmpresa()).get();
-        Responsavel responsavel = responsavelRepository.findById(contratoDTO.getIdDoResponsavel()).get();
 
 
         Contrato novoContrato = Contrato.builder()
                 .codigoDoContrato(codigoDoContrato)
                 .dataInicio(contratoDTO.getDataInicio())
                 .dataTermino(contratoDTO.getDataTermino())
+                .qtdTotalDePontosFuncao(contratoDTO.getQtdDePontosFuncao())
                 .qtdDePontosFuncao(contratoDTO.getQtdDePontosFuncao())
                 .valor(contratoDTO.getValor())
                 .descricao(contratoDTO.getDescricao())
                 .empresa(empresa)
-                .responsavel(responsavel)
+                .status("ativo")
                 .tipoDeContrato(contratoDTO.getTipoDeContrato())
                 .build();
 
@@ -104,13 +135,14 @@ public class ContratoServiceImpl implements ContratoService {
         Contrato contratoAtualizado = encontrarPeloIdContrato(id);
         Usuario usuario = usuarioRepository.findById(contratoDTO.getIdDoUsuario()).get();
 
-        log.info("Contrato com ID:'{}' Foi Repasado Para '{}'",id,usuario);
+        log.info("Contrato com ID:'{}' Foi Repasado Para '{}'",id,usuario.getUsername());
 
-        boolean match = usuario.getRoles().stream().anyMatch(s -> s.getRoleName().equals("ROLE_GP"));
+        boolean roleGp = usuario.getRoles().stream().anyMatch(role -> role.getRoleName().name().equals("ROLE_GP"));
 
-        if (!match) throw new BadResquestException("Usuario não autorizado");
+        if (!roleGp) throw new BadResquestException("Usuario não é Gerente de Projeto, por favor Verifique");
 
-        contratoAtualizado.setUsuario(usuario);
+
+        contratoAtualizado.setGerenteDeProjeto(usuario);
 
         return contratoRepository.save(contratoAtualizado);
     }
@@ -125,6 +157,8 @@ public class ContratoServiceImpl implements ContratoService {
 
         log.info("Contrato com ID:'{}' Foi Inativado",id);
 
+
+        contratoDeletado.setStatus("inativo");
     }
 
     public static Integer geradorDeCodigoDoContrato(){

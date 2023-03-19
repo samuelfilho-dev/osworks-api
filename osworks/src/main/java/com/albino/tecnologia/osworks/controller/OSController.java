@@ -1,6 +1,7 @@
 package com.albino.tecnologia.osworks.controller;
 
 import com.albino.tecnologia.osworks.controller.dto.OSDTO;
+import com.albino.tecnologia.osworks.model.Contrato;
 import com.albino.tecnologia.osworks.model.OS;
 import com.albino.tecnologia.osworks.service.impl.OSServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +37,15 @@ public class OSController {
         Page<OS> osList = osService.listarTodasOS(pageable);
 
         return ResponseEntity.ok(osList);
+    }
+
+    @GetMapping("/contrato/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_GP','ROLE_DIRETOR')")
+    public ResponseEntity<Contrato> mostrarContratoDaOS(@PathVariable Long id){
+
+        Contrato contrato = osService.mostrarContratoDaOS(id);
+
+        return ResponseEntity.ok(contrato);
     }
 
     @PostMapping("/{id}")
