@@ -61,9 +61,9 @@ public class ProjetoController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_GPP')")
-    public ResponseEntity<Void> deletarProjeto(@PathVariable Long id) {
+    public ResponseEntity<Void> inativarProjeto(@PathVariable Long id) {
 
-        projetoService.deletarProjeto(id);
+        projetoService.inativarProjeto(id);
 
         return ResponseEntity.noContent().build();
     }

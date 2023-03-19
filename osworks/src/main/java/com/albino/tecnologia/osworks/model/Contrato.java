@@ -36,6 +36,7 @@ public class Contrato {
     private String descricao;
     private String status;
     private TipoDeContrato tipoDeContrato;
+    private String status;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "contrato_id")
     @JsonIgnoreProperties("contrato")

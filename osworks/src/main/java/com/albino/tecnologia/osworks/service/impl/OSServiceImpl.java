@@ -105,13 +105,14 @@ public class OSServiceImpl implements OSService {
     }
 
     @Override
-    public void deletarOS(Long id) {
+    public void inativarOS(Long id) {
 
         log.info("OS de ID:'{}' sendo Inativada ", id);
-        OS osDeletada = encontrarPeloId(id);
+
+        OS osInativada = encontrarPeloId(id);
+        osInativada.setStatus("Inativa");
 
         log.info("OS de ID:'{}' foi Inativada", id);
-        osRepository.delete(osDeletada);
     }
 
     public static Integer geradorDeCodigoDaOS(){

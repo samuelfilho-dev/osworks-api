@@ -148,13 +148,15 @@ public class ContratoServiceImpl implements ContratoService {
     }
 
     @Override
-    public void deletarContrato(Long id) {
+    public void inativarContrato(Long id) {
 
         log.info("Contrato com ID:'{}' Sendo Inativado",id);
 
-        Contrato contratoDeletado = encontrarPeloIdContrato(id);
+        Contrato contratoInativado = encontrarPeloIdContrato(id);
+        contratoInativado.setStatus("inativa");
 
         log.info("Contrato com ID:'{}' Foi Inativado",id);
+
 
         contratoDeletado.setStatus("inativo");
     }

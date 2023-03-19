@@ -12,5 +12,5 @@ public interface ResponsavelService {
     Page<Responsavel> listarTodosResponsaveis(Pageable pageable);
     Responsavel criarResponsavel(ResponsavelDTO responsavelDTO);
     Responsavel atualizarResponsavel(Long id,ResponsavelDTO responsavelDTO);
-    void deletarResponsavel(Long id);
+    void inativarResponsavel(Long id);
 }

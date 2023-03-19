@@ -14,5 +14,5 @@ public interface OSService {
     Contrato mostrarContratoDaOS(Long id);
     OS criarOS(Long id,OSDTO osdto);
     OS atualizarOS(Long id,OSDTO osdto);
-    void deletarOS(Long id);
+    void inativarOS(Long id);
 }
