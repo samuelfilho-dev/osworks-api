@@ -12,5 +12,5 @@ public interface EnderecoService {
     Page<Endereco> listarTodosEnderecos(Pageable pageable);
     Endereco criarEndereco(EnderecoDTO enderecoDTO);
     Endereco atualizarEndereco(Long id, EnderecoDTO enderecoDTO);
-    void deletarEndereco(Long id);
+    void inativarEndereco(Long id);
 }

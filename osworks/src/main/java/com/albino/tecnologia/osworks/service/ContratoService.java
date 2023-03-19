@@ -21,5 +21,5 @@ public interface ContratoService {
     Contrato criarContrato(ContratoDTO contratoDTO);
     Contrato atualizarContrato(Long id,ContratoDTO contratoDTO);
     Contrato distribuirContrato(Long id,ContratoDTO contratoDTO);
-    void deletarContrato(Long id);
+    void inativarContrato(Long id);
 }

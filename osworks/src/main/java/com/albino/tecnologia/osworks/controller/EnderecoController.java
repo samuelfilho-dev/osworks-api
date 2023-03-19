@@ -59,9 +59,9 @@ public class EnderecoController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
-    public ResponseEntity<Void> deletarEndereco(@PathVariable Long id) {
+    public ResponseEntity<Void> inativarEndereco(@PathVariable Long id) {
 
-        enderecoService.deletarEndereco(id);
+        enderecoService.inativarEndereco(id);
 
         return ResponseEntity.noContent().build();
     }

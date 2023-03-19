@@ -60,9 +60,9 @@ public class ResponsavelController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
-    public ResponseEntity<Void> deletarResponsavel(@PathVariable Long id) {
+    public ResponseEntity<Void> inativarResponsavel(@PathVariable Long id) {
 
-        responsavelService.deletarResponsavel(id);
+        responsavelService.inativarResponsavel(id);
 
         return ResponseEntity.noContent().build();
     }

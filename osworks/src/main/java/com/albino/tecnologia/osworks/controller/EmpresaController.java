@@ -59,9 +59,9 @@ public class EmpresaController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
-    public ResponseEntity<Void> deletarEmpresa(@PathVariable Long id){
+    public ResponseEntity<Void> inativarEmpresa(@PathVariable Long id){
 
-        empresaService.deletarEmpresa(id);
+        empresaService.inativarEmpresa(id);
 
         return ResponseEntity.noContent().build();
     }

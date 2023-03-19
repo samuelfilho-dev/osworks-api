@@ -12,5 +12,5 @@ public interface EmpresaService {
     Page<Empresa> listarTodasEmpresas(String status, Pageable pageable);
     Empresa criarEmpresa(EmpresaDTO empresaDTO);
     Empresa atualizarEmpresa(Long id,EmpresaDTO empresaDTO);
-    void deletarEmpresa(Long id);
+    void inativarEmpresa(Long id);
 }
