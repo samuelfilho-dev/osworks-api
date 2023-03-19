@@ -4,6 +4,7 @@ import com.albino.tecnologia.osworks.controller.dto.ContratoDTO;
 import com.albino.tecnologia.osworks.model.Contrato;
 import com.albino.tecnologia.osworks.model.OS;
 import com.albino.tecnologia.osworks.service.impl.ContratoServiceImpl;
+import io.swagger.models.auth.In;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -71,6 +72,33 @@ public class ContratoController {
                 contratoService.listarContratoPorDataDeVencimento(dataDeVencimento);
 
         return ResponseEntity.ok(contratoPorDataDeVencimento);
+
+    }
+
+    @GetMapping("/vencimento/nd/{numerosDeDias}")
+    @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
+    public ResponseEntity<List<Contrato>> listarContratosPorPrazoDeVencimento(
+            @PathVariable Integer numerosDeDias){
+
+        log.info("Retornando um Lista de OS do Contrato ");
+
+        List<Contrato> contratoPorDataDeVencimento =
+                contratoService.listarContratosPorPrazoDeVencimento(numerosDeDias);
+
+        return ResponseEntity.ok(contratoPorDataDeVencimento);
+
+    }
+
+    @GetMapping("/vencimento/{id}")
+    @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
+    public ResponseEntity<Integer> verDiaDeVencimento(
+            @PathVariable Long id){
+
+        log.info("Retornando um Lista de OS do Contrato ");
+
+        Integer diasParaVecimento = contratoService.verDiaDeVencimento(id);
+
+        return ResponseEntity.ok(diasParaVecimento);
 
     }
 

@@ -31,10 +31,10 @@ public class ContratoServiceImpl implements ContratoService {
     @Override
     public Contrato encontrarPeloIdContrato(Long id) {
 
-        log.info("Encontrado o Contrato com ID:'{}'",id);
+        log.info("Encontrado o Contrato com ID:'{}'", id);
 
         return contratoRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Id Não Encontrado"));
+                .orElseThrow(() -> new RuntimeException("Id Não Encontrado"));
     }
 
     @Override
@@ -48,7 +48,7 @@ public class ContratoServiceImpl implements ContratoService {
     @Override
     public List<OS> listarOSDoContrato(Long id) {
 
-        log.info("Listando Todas OS Do Contrato com ID: '{}' ",id);
+        log.info("Listando Todas OS Do Contrato com ID: '{}' ", id);
 
         Contrato contrato = encontrarPeloIdContrato(id);
 
@@ -60,7 +60,7 @@ public class ContratoServiceImpl implements ContratoService {
 
         Usuario usuario = usuarioRepository.findById(id).get();
 
-        log.info("Listando Todos Contratos do Gerente De Projetos: '{}' ",usuario.getUsername());
+        log.info("Listando Todos Contratos do Gerente De Projetos: '{}' ", usuario.getUsername());
 
         return contratoRepository.findByGerenteDeProjeto(usuario);
     }
@@ -68,16 +68,35 @@ public class ContratoServiceImpl implements ContratoService {
     @Override
     public List<Contrato> listarContratoPorDataDeVencimento(LocalDate dataDeVencimento) {
 
-        log.info("Listando Todos Contratos com a data de vencimento '{}' ",dataDeVencimento);
+        log.info("Listando Todos Contratos com a data de vencimento '{}' ", dataDeVencimento);
 
         return contratoRepository.findByDataTermino(dataDeVencimento);
+    }
+
+    @Override
+    public List<Contrato> listarContratosPorPrazoDeVencimento(Integer numerosDeDias) {
+
+        LocalDate dataInicial = LocalDate.now();
+        LocalDate dataFinal = dataInicial.plusDays(numerosDeDias);
+
+        log.info("Listando Todos Contratos com Prazo De Vencimento de  '{}' Dias", numerosDeDias);
+
+        return contratoRepository.findByDataTerminoBetween(dataInicial, dataFinal);
+    }
+
+    @Override
+    public Integer verDiaDeVencimento(Long id) {
+
+
+        log.info("Verificando Quanto Dias Para o Vencimento Do Contrato com ID: '{}' ",id);
+
+        return contratoRepository.findDiasParaVencer(id);
     }
 
     @Override
     public Contrato relatorioDeConsumoDeContrato(Long id) {
 
         List<Contrato> listaDeContratos = listarContratoPorGerenteDeProjeto(id);
-
 
 
         return null;
@@ -112,11 +131,11 @@ public class ContratoServiceImpl implements ContratoService {
     }
 
     @Override
-    public Contrato atualizarContrato(Long id,ContratoDTO contratoDTO) {
+    public Contrato atualizarContrato(Long id, ContratoDTO contratoDTO) {
 
         Contrato contratoAtualizado = encontrarPeloIdContrato(id);
 
-        log.info("Contrato com ID:'{}' Sendo Atualizado '{}'",id,contratoDTO);
+        log.info("Contrato com ID:'{}' Sendo Atualizado '{}'", id, contratoDTO);
 
         contratoAtualizado.setDataInicio(contratoDTO.getDataInicio());
         contratoAtualizado.setDataTermino(contratoDTO.getDataTermino());
@@ -124,7 +143,7 @@ public class ContratoServiceImpl implements ContratoService {
         contratoAtualizado.setDescricao(contratoDTO.getDescricao());
         contratoAtualizado.setTipoDeContrato(contratoDTO.getTipoDeContrato());
 
-        log.info("Contrato com ID: '{}' Foi Atualizado '{}'",id,contratoDTO);
+        log.info("Contrato com ID: '{}' Foi Atualizado '{}'", id, contratoDTO);
 
         return contratoRepository.save(contratoAtualizado);
     }
@@ -135,7 +154,7 @@ public class ContratoServiceImpl implements ContratoService {
         Contrato contratoAtualizado = encontrarPeloIdContrato(id);
         Usuario usuario = usuarioRepository.findById(contratoDTO.getIdDoUsuario()).get();
 
-        log.info("Contrato com ID:'{}' Foi Repasado Para '{}'",id,usuario.getUsername());
+        log.info("Contrato com ID:'{}' Foi Repasado Para '{}'", id, usuario.getUsername());
 
         boolean roleGp = usuario.getRoles().stream().anyMatch(role -> role.getRoleName().name().equals("ROLE_GP"));
 
@@ -150,20 +169,20 @@ public class ContratoServiceImpl implements ContratoService {
     @Override
     public void deletarContrato(Long id) {
 
-        log.info("Contrato com ID:'{}' Sendo Inativado",id);
+        log.info("Contrato com ID:'{}' Sendo Inativado", id);
 
         Contrato contratoDeletado = encontrarPeloIdContrato(id);
 
-        log.info("Contrato com ID:'{}' Foi Inativado",id);
+        log.info("Contrato com ID:'{}' Foi Inativado", id);
 
         contratoDeletado.setStatus("inativo");
     }
 
-    public static Integer geradorDeCodigoDoContrato(){
+    public static Integer geradorDeCodigoDoContrato() {
 
         Integer ano = LocalDate.now().getYear();
 
-        if (ano != LocalDate.now().getYear()){
+        if (ano != LocalDate.now().getYear()) {
             id = 0;
         }
 

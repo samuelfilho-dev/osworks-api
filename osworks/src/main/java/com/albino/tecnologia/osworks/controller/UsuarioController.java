@@ -50,11 +50,40 @@ public class UsuarioController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<Usuario> atualizarUsuario(@PathVariable Long id, @PathVariable UsuarioDTO usuarioDTO){
+    public ResponseEntity<Usuario> atualizarUsuario(@PathVariable Long id, @RequestBody UsuarioDTO usuarioDTO){
 
         Usuario usuarioAtualizado = usuarioService.atualizarUsuario(id, usuarioDTO);
 
         return ResponseEntity.ok(usuarioAtualizado);
+    }
+
+    @PutMapping("/senha/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<Usuario> trocarSenha(@PathVariable Long id, @RequestBody UsuarioDTO usuarioDTO){
+
+        Usuario usuario = usuarioService.trocarSenha(id, usuarioDTO);
+
+        return ResponseEntity.ok(usuario);
+    }
+
+    @PutMapping("/senha/{username}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<Usuario> trocarSenhaPorUsername(@PathVariable String username,
+                                                          @RequestBody UsuarioDTO usuarioDTO){
+
+        Usuario usuario = usuarioService.trocarSenhaPorUsername(username, usuarioDTO);
+
+        return ResponseEntity.ok(usuario);
+    }
+
+    @PutMapping("/senha/email/{email}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<Usuario> trocarSenhaPorEmail(@PathVariable String email,
+                                                       @RequestBody UsuarioDTO usuarioDTO){
+
+        Usuario usuario = usuarioService.trocarSenhaPorEmail(email, usuarioDTO);
+
+        return ResponseEntity.ok(usuario);
     }
 
     @DeleteMapping("/{id}")

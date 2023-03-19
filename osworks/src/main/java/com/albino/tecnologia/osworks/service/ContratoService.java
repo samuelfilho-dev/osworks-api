@@ -15,6 +15,8 @@ public interface ContratoService {
     List<OS> listarOSDoContrato(Long id);
     List<Contrato> listarContratoPorGerenteDeProjeto(Long id);
     List<Contrato> listarContratoPorDataDeVencimento(LocalDate dataDeVencimento);
+    List<Contrato> listarContratosPorPrazoDeVencimento(Integer numerosDeDias);
+    Integer verDiaDeVencimento(Long id);
     Contrato relatorioDeConsumoDeContrato(Long id);
     Contrato criarContrato(ContratoDTO contratoDTO);
     Contrato atualizarContrato(Long id,ContratoDTO contratoDTO);

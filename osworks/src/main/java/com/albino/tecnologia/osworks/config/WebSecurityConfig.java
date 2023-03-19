@@ -44,7 +44,7 @@ public class WebSecurityConfig {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/")
                 .defaultSuccessUrl("/", true)
                 .failureUrl("/login-error")
                 .permitAll()
@@ -56,7 +56,8 @@ public class WebSecurityConfig {
                 .exceptionHandling()
                 .accessDeniedPage("/acesso-negado")
                 .and()
-                .csrf().disable();
+                .csrf().disable()
+                .cors().disable();
 
         return http.build();
     }
