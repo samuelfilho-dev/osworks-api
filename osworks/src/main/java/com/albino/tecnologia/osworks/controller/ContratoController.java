@@ -2,6 +2,7 @@ package com.albino.tecnologia.osworks.controller;
 
 import com.albino.tecnologia.osworks.controller.dto.ContratoDTO;
 import com.albino.tecnologia.osworks.model.Contrato;
+import com.albino.tecnologia.osworks.model.OS;
 import com.albino.tecnologia.osworks.service.impl.ContratoServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -13,6 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/contrato")
@@ -42,6 +44,18 @@ public class ContratoController {
         Page<Contrato> contratoList = contratoService.listarTodosContratos(pageable);
 
         return ResponseEntity.ok(contratoList);
+    }
+
+    @GetMapping("/os/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_GP','ROLE_GPP')")
+    public ResponseEntity<List<OS>> listarOSDoContrato(@PathVariable Long id){
+
+        log.info("Retornando um Contrato");
+
+        List<OS> osDoContrato = contratoService.listarOSDoContrato(id);
+
+        return ResponseEntity.ok(osDoContrato);
+
     }
 
     @PostMapping

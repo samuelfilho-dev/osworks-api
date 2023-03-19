@@ -2,10 +2,7 @@ package com.albino.tecnologia.osworks.service.impl;
 
 import com.albino.tecnologia.osworks.controller.dto.ContratoDTO;
 import com.albino.tecnologia.osworks.exception.BadResquestException;
-import com.albino.tecnologia.osworks.model.Contrato;
-import com.albino.tecnologia.osworks.model.Empresa;
-import com.albino.tecnologia.osworks.model.Responsavel;
-import com.albino.tecnologia.osworks.model.Usuario;
+import com.albino.tecnologia.osworks.model.*;
 import com.albino.tecnologia.osworks.repository.ContratoRepository;
 import com.albino.tecnologia.osworks.repository.EmpresaRespository;
 import com.albino.tecnologia.osworks.repository.ResponsavelRepository;
@@ -18,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Log4j2
@@ -44,6 +43,15 @@ public class ContratoServiceImpl implements ContratoService {
 
         return contratoRepository.findAll(pageable);
     }
+
+    @Override
+    public List<OS> listarOSDoContrato(Long id) {
+
+        Contrato contrato = encontrarPeloIdContrato(id);
+
+        return contrato.getOs();
+    }
+
 
     @Override
     public Contrato criarContrato(ContratoDTO contratoDTO) {
