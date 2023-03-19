@@ -4,6 +4,8 @@ import com.albino.tecnologia.osworks.controller.dto.UsuarioDTO;
 import com.albino.tecnologia.osworks.model.Usuario;
 import com.albino.tecnologia.osworks.service.impl.UsuarioServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -30,9 +32,9 @@ public class UsuarioController {
 
     @GetMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<List<Usuario>> listarTodosUsuarios(){
+    public ResponseEntity<Page<Usuario>> listarTodosUsuarios(Pageable pageable){
 
-        List<Usuario> usuarios = usuarioService.listarTodosUsuarios();
+        Page<Usuario> usuarios = usuarioService.listarTodosUsuarios(pageable);
 
         return ResponseEntity.ok(usuarios);
     }
