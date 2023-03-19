@@ -5,6 +5,8 @@ import com.albino.tecnologia.osworks.model.Contrato;
 import com.albino.tecnologia.osworks.service.impl.ContratoServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,7 +23,7 @@ public class ContratoController {
     private final ContratoServiceImpl contratoService;
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_FINANCEIRO','ROLE_DIRETOR','ROLE_GP')")
+    @PreAuthorize("hasAnyRole('ROLE_FINANCEIRO','ROLE_DIRETOR','ROLE_GP','ROLE_GPP')")
     public ResponseEntity<Contrato> encontrarPeloIdContrato(@PathVariable Long id){
 
         log.info("Retornando um Contrato");
@@ -33,12 +35,12 @@ public class ContratoController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ROLE_FINANCEIRO','ROLE_DIRETOR','ROLE_GP')")
-    public ResponseEntity<List<Contrato>> listarTodosContratos(){
+    @PreAuthorize("hasAnyRole('ROLE_FINANCEIRO','ROLE_DIRETOR','ROLE_GP','ROLE_GPP')")
+    public ResponseEntity<Page<Contrato>> listarTodosContratos(Pageable pageable){
 
         log.info("Retornando um Todos Contratos");
 
-        List<Contrato> contratoList = contratoService.listarTodosContratos();
+        Page<Contrato> contratoList = contratoService.listarTodosContratos(pageable);
 
         return ResponseEntity.ok(contratoList);
     }

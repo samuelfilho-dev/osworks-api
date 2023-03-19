@@ -1,6 +1,7 @@
 package com.albino.tecnologia.osworks.service.impl;
 
 import com.albino.tecnologia.osworks.controller.dto.ContratoDTO;
+import com.albino.tecnologia.osworks.exception.BadResquestException;
 import com.albino.tecnologia.osworks.model.Contrato;
 import com.albino.tecnologia.osworks.model.Empresa;
 import com.albino.tecnologia.osworks.model.Responsavel;
@@ -12,6 +13,8 @@ import com.albino.tecnologia.osworks.repository.UsuarioRepository;
 import com.albino.tecnologia.osworks.service.ContratoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -36,11 +39,11 @@ public class ContratoServiceImpl implements ContratoService {
     }
 
     @Override
-    public List<Contrato> listarTodosContratos() {
+    public Page<Contrato> listarTodosContratos(Pageable pageable) {
 
         log.info("Listando Todos os Contratos");
 
-        return contratoRepository.findAll();
+        return contratoRepository.findAll(pageable);
     }
 
     @Override
@@ -95,6 +98,10 @@ public class ContratoServiceImpl implements ContratoService {
         Usuario usuario = usuarioRepository.findById(contratoDTO.getIdDoUsuario()).get();
 
         log.info("Contrato com ID:'{}' Foi Repasado Para '{}'",id,usuario);
+
+        boolean match = usuario.getRoles().stream().anyMatch(s -> s.getRoleName().equals("ROLE_GP"));
+
+        if (!match) throw new BadResquestException("Usuario não autorizado");
 
         contratoAtualizado.setUsuario(usuario);
 
