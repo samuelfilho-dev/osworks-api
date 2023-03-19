@@ -177,7 +177,7 @@ public class ContratoServiceImpl implements ContratoService {
         log.info("Contrato com ID:'{}' Foi Inativado", id);
 
 
-        contratoDeletado.setStatus("inativo");
+        contratoInativado.setStatus("inativo");
     }
 
     public static Integer geradorDeCodigoDoContrato() {
