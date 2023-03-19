@@ -8,6 +8,8 @@ import com.albino.tecnologia.osworks.repository.UsuarioRepository;
 import com.albino.tecnologia.osworks.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,11 +37,11 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public List<Usuario> listarTodosUsuarios() {
+    public Page<Usuario> listarTodosUsuarios(Pageable pageable) {
 
         log.info("Listando Todos Usuarios");
 
-        return usuarioRepository.findAll();
+        return usuarioRepository.findAll(pageable);
     }
 
     @Override

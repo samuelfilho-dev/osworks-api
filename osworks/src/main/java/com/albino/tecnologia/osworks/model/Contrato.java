@@ -41,4 +41,7 @@ public class Contrato {
     @OneToOne
     @JoinColumn(name = "responsavel_id")
     private Responsavel responsavel;
+    @OneToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 }

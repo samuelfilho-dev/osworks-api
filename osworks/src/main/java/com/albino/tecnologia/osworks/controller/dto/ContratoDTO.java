@@ -11,7 +11,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -41,9 +40,12 @@ public class ContratoDTO {
 
     private TipoDeContrato tipoDeContrato;
 
-    @Positive
+    @Positive(message = "O id Da Empresa Deverá Ser Positivo")
     private Long idDaEmpresa;
 
-    @Positive
+    @Positive(message = "O id Do Responsavel Deverá Ser Positivo")
     private Long idDoResponsavel;
+
+    @Positive
+    private Long idDoUsuario;
 }

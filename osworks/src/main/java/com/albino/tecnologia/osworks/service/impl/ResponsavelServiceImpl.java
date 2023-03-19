@@ -6,6 +6,8 @@ import com.albino.tecnologia.osworks.repository.ResponsavelRepository;
 import com.albino.tecnologia.osworks.service.ResponsavelService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,10 +26,10 @@ public class ResponsavelServiceImpl implements ResponsavelService {
     }
 
     @Override
-    public List<Responsavel> listarTodosResponsaveis() {
+    public Page<Responsavel> listarTodosResponsaveis(Pageable pageable) {
 
         log.info("Listando Todos os Responsaveis");
-        return responsavelRepository.findAll();
+        return responsavelRepository.findAll(pageable);
     }
 
     @Override

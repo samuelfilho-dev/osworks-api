@@ -9,9 +9,9 @@ import com.albino.tecnologia.osworks.repository.EmpresaRespository;
 import com.albino.tecnologia.osworks.service.EmpresaService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -30,15 +30,15 @@ public class EmpresaServiceImpl implements EmpresaService {
     }
 
     @Override
-    public List<Empresa> listarTodasEmpresas(String status) {
+    public Page<Empresa> listarTodasEmpresas(String status, Pageable pageable) {
 
         if (status == null){
             log.info("Listando Todas as Empresas");
-            return empresaRespository.findAll();
+            return empresaRespository.findAll(pageable);
         }
 
         log.info("Listando Todas as Empresas");
-        return empresaRespository.findByStatus(status);
+        return empresaRespository.findByStatus(status, pageable);
     }
 
     @Override

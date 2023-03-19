@@ -7,6 +7,8 @@ import com.albino.tecnologia.osworks.repository.EnderecoRepository;
 import com.albino.tecnologia.osworks.service.EnderecoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,10 +27,10 @@ public class EnderecoServiceImpl implements  EnderecoService {
     }
 
     @Override
-    public List<Endereco> listarTodosEnderecos() {
+    public Page<Endereco> listarTodosEnderecos(Pageable pageable) {
 
         log.info("Listando Todos os Enderecos");
-        return enderecoRepository.findAll();
+        return enderecoRepository.findAll(pageable);
     }
 
     @Override
