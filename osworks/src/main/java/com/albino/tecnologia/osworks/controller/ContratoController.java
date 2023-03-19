@@ -13,7 +13,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/contrato")
@@ -69,7 +68,7 @@ public class ContratoController {
 
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/distribuir/{id}")
     @PreAuthorize("hasRole('ROLE_GPP')")
     public ResponseEntity<Contrato> distribuirContrato(@PathVariable Long id, @RequestBody ContratoDTO contratoDTO){
 
