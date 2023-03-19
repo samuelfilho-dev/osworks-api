@@ -33,15 +33,14 @@ public class Contrato {
     private Long qtdDePontosFuncao;
     private BigDecimal valor;
     private String descricao;
+    private String status;
     private TipoDeContrato tipoDeContrato;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "contrato_id")
     @JsonIgnoreProperties("contrato")
     private List<OS> os = new ArrayList<>();
-    @OneToOne
-    @JoinColumn(name = "responsavel_id")
-    private Responsavel responsavel;
-    @OneToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "gp_id")
+    private Usuario gerenteDeProjeto;
 }

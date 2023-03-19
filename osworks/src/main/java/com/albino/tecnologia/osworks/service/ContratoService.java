@@ -12,6 +12,7 @@ public interface ContratoService {
     Contrato encontrarPeloIdContrato(Long id);
     Page<Contrato> listarTodosContratos(Pageable pageable);
     List<OS> listarOSDoContrato(Long id);
+    List<Contrato> listarContratoPorGerenteDeProjeto(Long id);
     Contrato criarContrato(ContratoDTO contratoDTO);
     Contrato atualizarContrato(Long id,ContratoDTO contratoDTO);
     Contrato distribuirContrato(Long id,ContratoDTO contratoDTO);

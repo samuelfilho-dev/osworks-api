@@ -24,7 +24,7 @@ public class ContratoController {
     private final ContratoServiceImpl contratoService;
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_FINANCEIRO','ROLE_DIRETOR','ROLE_GP','ROLE_GPP')")
+    @PreAuthorize("hasAnyRole('ROLE_FINANCEIRO','ROLE_DIRETOR','ROLE_GPP')")
     public ResponseEntity<Contrato> encontrarPeloIdContrato(@PathVariable Long id){
 
         log.info("Retornando um Contrato");
@@ -36,7 +36,7 @@ public class ContratoController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ROLE_FINANCEIRO','ROLE_DIRETOR','ROLE_GP','ROLE_GPP')")
+    @PreAuthorize("hasAnyRole('ROLE_FINANCEIRO','ROLE_DIRETOR','ROLE_GPP')")
     public ResponseEntity<Page<Contrato>> listarTodosContratos(Pageable pageable){
 
         log.info("Retornando um Todos Contratos");
@@ -50,11 +50,23 @@ public class ContratoController {
     @PreAuthorize("hasAnyRole('ROLE_GP','ROLE_GPP')")
     public ResponseEntity<List<OS>> listarOSDoContrato(@PathVariable Long id){
 
-        log.info("Retornando um Contrato");
+        log.info("Retornando um Lista de OS do Contrato ");
 
         List<OS> osDoContrato = contratoService.listarOSDoContrato(id);
 
         return ResponseEntity.ok(osDoContrato);
+
+    }
+
+    @GetMapping("/gp/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_GP')")
+    public ResponseEntity<List<Contrato>> listarContratoPorGerenteDeProjeto(@PathVariable Long id){
+
+        log.info("Retornando uma Lista do Contrato De Com Gerente de Projeto Com ID: '{}' ",id);
+
+        List<Contrato> contratoPorGerenteDeProjeto = contratoService.listarContratoPorGerenteDeProjeto(id);
+
+        return ResponseEntity.ok(contratoPorGerenteDeProjeto);
 
     }
 
