@@ -48,7 +48,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Transactional
     public Usuario criarUsuario(UsuarioDTO usuarioDTO) {
 
-        log.info("Criando Um Novo Usuario '{}'", usuarioDTO.toString());
+        log.info("Criando Um Novo Usuario '{}'", usuarioDTO.getUsername());
 
         Usuario novoUsuario = Usuario.builder()
                 .nome(usuarioDTO.getNome())
@@ -61,6 +61,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         List<Role> roles = new ArrayList<>();
 
         log.info("Criando Roles Para O Usuario");
+
         for (Long roleId : usuarioDTO.getRoleIds()) {
             Role role = roleRepository.findById(roleId).get();
             roles.add(role);
@@ -70,7 +71,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         novoUsuario.setRoles(roles);
 
-        log.info("Salvando O Usuario '{}' No Banco De Dados", usuarioDTO);
+        log.info("Salvando O Usuario '{}' No Banco De Dados", usuarioDTO.getUsername());
 
         return usuarioRepository.save(novoUsuario);
     }

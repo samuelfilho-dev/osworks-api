@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import javax.validation.UnexpectedTypeException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
@@ -92,6 +93,20 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                         .horario(LocalDateTime.now())
                         .status(HttpStatus.BAD_REQUEST.value())
                         .titulo("Bad Request Exception, Verifique a Tipagem do Dado")
+                        .detalhes(ex.getLocalizedMessage())
+                        .mensagemDesenvolvedor(ex.getClass().getName())
+                        .build(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity<ExceptionDetalis> handlerNoSuchElementException(
+            NoSuchElementException ex) {
+
+        return new ResponseEntity<>(
+                ExceptionDetalis.builder()
+                        .horario(LocalDateTime.now())
+                        .status(HttpStatus.BAD_REQUEST.value())
+                        .titulo("Bad Request Exception, Verifique o Login")
                         .detalhes(ex.getLocalizedMessage())
                         .mensagemDesenvolvedor(ex.getClass().getName())
                         .build(), HttpStatus.BAD_REQUEST);
