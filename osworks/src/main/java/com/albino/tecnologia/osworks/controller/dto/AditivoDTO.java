@@ -1,6 +1,5 @@
 package com.albino.tecnologia.osworks.controller.dto;
 
-
 import com.albino.tecnologia.osworks.enums.TipoDeContrato;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
@@ -9,22 +8,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ContratoDTO {
+public class AditivoDTO {
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private LocalDate dataInicio;
+    @Positive(message = "Prencha o Campo Pontos De Função Com Número Positivo")
+    private Long pontosFuncao;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataTermino;
@@ -33,20 +29,9 @@ public class ContratoDTO {
     @JsonSerialize
     private BigDecimal valorUnitario;
 
-    @Positive(message = "Prencha o Campo Pontos De Função Com Número Positivo")
-    private Long qtdDePontosFuncao;
-
-    @NotNull(message = "Prencha o Descrição Corretamente")
-    private List<String> descricao;
-
+    @NotNull(message = "Prencha o Tipo De Contrato Corretamente")
     private List<TipoDeContrato> tipoDeContrato;
 
-    @Positive(message = "O id Da Empresa Deverá Ser Positivo")
-    private Long idDaEmpresa;
-
-    @Positive(message = "O id Do Responsavel Deverá Ser Positivo")
-    private Long idDoResponsavel;
-
-    @Positive
-    private Long idDoUsuario;
+    @NotNull(message = "Prencha o Descrição Corretamente")
+    private List<String> descricoes;
 }

@@ -1,6 +1,7 @@
 package com.albino.tecnologia.osworks.controller;
 
 import com.albino.tecnologia.osworks.controller.dto.ContratoDTO;
+import com.albino.tecnologia.osworks.model.Aditivo;
 import com.albino.tecnologia.osworks.model.Contrato;
 import com.albino.tecnologia.osworks.model.OS;
 import com.albino.tecnologia.osworks.service.impl.ContratoServiceImpl;
@@ -58,6 +59,18 @@ public class ContratoController {
         List<OS> osDoContrato = contratoService.listarOSDoContrato(id);
 
         return ResponseEntity.ok(osDoContrato);
+
+    }
+
+    @GetMapping("/aditivo/{id}")
+    @PreAuthorize("hasRole('ROLE_GPP')")
+    public ResponseEntity<List<Aditivo>> listarAditivosDoContrato(@PathVariable Long id){
+
+        log.info("Retornando um Lista de Aditivos Do Contrato ");
+
+        List<Aditivo> aditivosDoContrato = contratoService.listarAditivosDoContrato(id);
+
+        return ResponseEntity.ok(aditivosDoContrato);
 
     }
 
@@ -135,18 +148,6 @@ public class ContratoController {
         Contrato contrato = contratoService.criarContrato(contratoDTO);
 
         return new ResponseEntity<>(contrato, HttpStatus.CREATED);
-
-    }
-
-    @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
-    public ResponseEntity<Contrato> atualizarContrato(@PathVariable Long id, @RequestBody ContratoDTO contratoDTO){
-
-        log.info("Atualizando Um Contrato");
-
-        Contrato contratoAtualizado = contratoService.atualizarContrato(id, contratoDTO);
-
-        return ResponseEntity.ok(contratoAtualizado);
 
     }
 

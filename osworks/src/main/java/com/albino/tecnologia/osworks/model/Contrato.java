@@ -1,6 +1,7 @@
 package com.albino.tecnologia.osworks.model;
 
 import com.albino.tecnologia.osworks.enums.TipoDeContrato;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,17 +33,23 @@ public class Contrato {
     private LocalDate dataTermino;
     private Long qtdDePontosFuncao;
     private Long qtdTotalDePontosFuncao;
-    private BigDecimal valor;
-    private String descricao;
+    private BigDecimal valorUnitario;
+    private BigDecimal valorTotalDoContrato;
+    @ElementCollection
+    @Column(name = "descricao",columnDefinition = "TEXT")
+    private List<String> descricoes = new ArrayList<>();
     private String status;
-    private TipoDeContrato tipoDeContrato;
-//    private List<LocalDate> dataDeTermino = new ArrayList<>();
+    @ElementCollection
+    @Column(name = "descricao",columnDefinition = "TEXT")
+    private List<TipoDeContrato> tipoDeContrato;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "contrato_id")
     @JsonIgnoreProperties("contrato")
     private List<OS> os = new ArrayList<>();
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "gp_id")
     private Usuario gerenteDeProjeto;
+    @OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("contrato")
+    private List<Aditivo> aditivos = new ArrayList<>();
 }
