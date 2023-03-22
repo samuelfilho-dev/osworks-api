@@ -1,11 +1,6 @@
 package com.albino.tecnologia.osworks.bean;
 
-import com.albino.tecnologia.osworks.model.Contrato;
-import com.albino.tecnologia.osworks.model.Empresa;
-import com.albino.tecnologia.osworks.model.Endereco;
-import com.albino.tecnologia.osworks.model.Responsavel;
-import com.albino.tecnologia.osworks.model.OS;
-import com.albino.tecnologia.osworks.model.Projeto;
+import com.albino.tecnologia.osworks.model.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -41,5 +36,16 @@ public class Beans {
     OS os() {
         return new OS();
     }
+
+    @Bean
+    Role role(){
+        return new Role();
+    }
+
+    @Bean
+    Usuario usuario(){
+        return new Usuario();
+    }
+
 
 }

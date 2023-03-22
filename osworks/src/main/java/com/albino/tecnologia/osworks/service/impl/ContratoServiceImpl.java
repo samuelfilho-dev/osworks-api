@@ -2,10 +2,7 @@ package com.albino.tecnologia.osworks.service.impl;
 
 import com.albino.tecnologia.osworks.controller.dto.ContratoDTO;
 import com.albino.tecnologia.osworks.exception.BadResquestException;
-import com.albino.tecnologia.osworks.model.Contrato;
-import com.albino.tecnologia.osworks.model.Empresa;
-import com.albino.tecnologia.osworks.model.OS;
-import com.albino.tecnologia.osworks.model.Usuario;
+import com.albino.tecnologia.osworks.model.*;
 import com.albino.tecnologia.osworks.repository.ContratoRepository;
 import com.albino.tecnologia.osworks.repository.EmpresaRespository;
 import com.albino.tecnologia.osworks.repository.UsuarioRepository;
@@ -16,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -56,6 +54,16 @@ public class ContratoServiceImpl implements ContratoService {
     }
 
     @Override
+    public List<Aditivo> listarAditivosDoContrato(Long id) {
+
+        log.info("Listando Todos Aditivos Do Contrato com ID: '{}' ", id);
+
+        Contrato contrato = encontrarPeloIdContrato(id);
+
+        return contrato.getAditivos();
+    }
+
+    @Override
     public List<Contrato> listarContratoPorGerenteDeProjeto(Long id) {
 
         Usuario usuario = usuarioRepository.findById(id).get();
@@ -87,7 +95,6 @@ public class ContratoServiceImpl implements ContratoService {
     @Override
     public Integer verDiaDeVencimento(Long id) {
 
-
         log.info("Verificando Quanto Dias Para o Vencimento Do Contrato com ID: '{}' ",id);
 
         return contratoRepository.findDiasParaVencer(id);
@@ -113,6 +120,8 @@ public class ContratoServiceImpl implements ContratoService {
 
         Empresa empresa = empresaRespository.findById(contratoDTO.getIdDaEmpresa()).get();
 
+        BigDecimal valorTotal =
+                contratoDTO.getValorUnitario().multiply(BigDecimal.valueOf(contratoDTO.getQtdDePontosFuncao()));
 
         Contrato novoContrato = Contrato.builder()
                 .codigoDoContrato(codigoDoContrato)
@@ -120,8 +129,9 @@ public class ContratoServiceImpl implements ContratoService {
                 .dataTermino(contratoDTO.getDataTermino())
                 .qtdTotalDePontosFuncao(contratoDTO.getQtdDePontosFuncao())
                 .qtdDePontosFuncao(contratoDTO.getQtdDePontosFuncao())
-                .valor(contratoDTO.getValor())
-                .descricao(contratoDTO.getDescricao())
+                .valorUnitario(contratoDTO.getValorUnitario())
+                .valorTotalDoContrato(valorTotal)
+                .descricoes(contratoDTO.getDescricao())
                 .empresa(empresa)
                 .status("ativo")
                 .tipoDeContrato(contratoDTO.getTipoDeContrato())
@@ -130,23 +140,6 @@ public class ContratoServiceImpl implements ContratoService {
         return contratoRepository.save(novoContrato);
     }
 
-    @Override
-    public Contrato atualizarContrato(Long id, ContratoDTO contratoDTO) {
-
-        Contrato contratoAtualizado = encontrarPeloIdContrato(id);
-
-        log.info("Contrato com ID:'{}' Sendo Atualizado '{}'", id, contratoDTO);
-
-        contratoAtualizado.setDataInicio(contratoDTO.getDataInicio());
-        contratoAtualizado.setDataTermino(contratoDTO.getDataTermino());
-        contratoAtualizado.setValor(contratoDTO.getValor());
-        contratoAtualizado.setDescricao(contratoDTO.getDescricao());
-        contratoAtualizado.setTipoDeContrato(contratoDTO.getTipoDeContrato());
-
-        log.info("Contrato com ID: '{}' Foi Atualizado '{}'", id, contratoDTO);
-
-        return contratoRepository.save(contratoAtualizado);
-    }
 
     @Override
     public Contrato distribuirContrato(Long id, ContratoDTO contratoDTO) {
@@ -160,7 +153,7 @@ public class ContratoServiceImpl implements ContratoService {
 
         if (!roleGp) throw new BadResquestException("Usuario não é Gerente de Projeto, por favor Verifique");
 
-
+        contratoAtualizado.setStatus("distribuido");
         contratoAtualizado.setGerenteDeProjeto(usuario);
 
         return contratoRepository.save(contratoAtualizado);
@@ -177,7 +170,7 @@ public class ContratoServiceImpl implements ContratoService {
         log.info("Contrato com ID:'{}' Foi Inativado", id);
 
 
-        contratoDeletado.setStatus("inativo");
+        contratoInativado.setStatus("inativo");
     }
 
     public static Integer geradorDeCodigoDoContrato() {

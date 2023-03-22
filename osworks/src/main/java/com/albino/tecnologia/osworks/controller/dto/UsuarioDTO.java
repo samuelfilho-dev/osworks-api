@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 public class UsuarioDTO {
     @NotBlank(message = "Prencha o Campo Nome Corretamente")
-    @Size(min = 3, max = 25, message = "'${validatedValue}' precisa estar entre {min} caracteres")
+    @Size(min = 3, max = 50, message = "'${validatedValue}' precisa estar entre {min} caracteres")
     private String nome;
 
     @NotBlank(message = "Prencha o Campo Username Corretamente")
