@@ -3,7 +3,6 @@ package com.albino.tecnologia.osworks.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,7 +14,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 @EnableWebSecurity
 public class WebSecurityConfig {
-
 
     private static final String[] SWAGGER_WHITELIST = {
             // -- Swagger UI v2
@@ -32,11 +30,13 @@ public class WebSecurityConfig {
 
     };
 
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
+       http.cors().and().csrf().disable();
+
         http
+
                 .httpBasic()
                 .and()
                 .authorizeHttpRequests()
@@ -47,13 +47,12 @@ public class WebSecurityConfig {
                 .formLogin()
                 .and()
                 .logout()
-                .deleteCookies("JSESSIONID")
-                .and()
-                .cors(Customizer.withDefaults())
-                .csrf().disable();
+                .deleteCookies("JSESSIONID");
 
         return http.build();
     }
+
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
