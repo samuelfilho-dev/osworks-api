@@ -55,6 +55,7 @@ public class UsuarioServiceImpl implements UsuarioService {
                 .username(usuarioDTO.getUsername())
                 .password(passwordEncoder.encode(usuarioDTO.getPassword()))
                 .email(usuarioDTO.getEmail())
+                .status("ativo")
                 .dataDeCriacao(LocalDateTime.now())
                 .build();
 
@@ -98,10 +99,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 
         Usuario usuarioInativado = encontrarPeloId(id);
-        usuarioInativado.setStatus("Inativo");
+        usuarioInativado.setStatus("inativo");
+        System.out.println(usuarioInativado);
 
         log.info("O Usuario '{}' Foi Inativado", usuarioInativado);
 
+        usuarioRepository.save(usuarioInativado);
     }
 
     @Override

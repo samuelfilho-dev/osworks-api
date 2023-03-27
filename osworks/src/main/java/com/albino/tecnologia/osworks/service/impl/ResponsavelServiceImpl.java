@@ -42,6 +42,7 @@ public class ResponsavelServiceImpl implements ResponsavelService {
                 .rg(responsavelDTO.getRg())
                 .numTelefone(responsavelDTO.getNumDeTelefone())
                 .email(responsavelDTO.getEmail())
+                .status("ativo")
                 .departamento(responsavelDTO.getDepartamento())
                 .cargo(responsavelDTO.getCargo())
                 .build();
@@ -73,7 +74,9 @@ public class ResponsavelServiceImpl implements ResponsavelService {
         log.info("Responsavel com ID:'{}' sendo Inativado", id);
 
         Responsavel responsavelInativado = encontrarPeloIdResponsavel(id);
-        responsavelInativado.setStatus("Inativo");
+        responsavelInativado.setStatus("inativo");
+
+        responsavelRepository.save(responsavelInativado);
 
         log.info("Responsavel com ID:'{}' foi Inativado", id);
     }
