@@ -46,6 +46,8 @@ public class EmpresaServiceImpl implements EmpresaService {
 
         log.info("Novo Endereço Criado '{}' ", empresaDTO.getEndereco());
 
+        String statusDeCriacao = "ativo";
+
         Endereco enderecoDaEmpresa = Endereco.builder()
                 .CEP(empresaDTO.getEndereco().getCEP())
                 .logradouro(empresaDTO.getEndereco().getLogradouro())
@@ -54,6 +56,7 @@ public class EmpresaServiceImpl implements EmpresaService {
                 .bairro(empresaDTO.getEndereco().getBairro())
                 .cidade(empresaDTO.getEndereco().getCidade())
                 .UF(empresaDTO.getEndereco().getUF())
+                .status(statusDeCriacao)
                 .build();
 
         log.info("Novo Responsavel Criado '{}' ", empresaDTO.getEndereco());
@@ -67,6 +70,7 @@ public class EmpresaServiceImpl implements EmpresaService {
                 .departamento(empresaDTO.getResponsavel().getDepartamento())
                 .cargo(empresaDTO.getResponsavel().getCargo())
                 .endereco(empresaDTO.getResponsavel().getEndereco())
+                .status(statusDeCriacao)
                 .build();
 
         log.info("Nova Empresa Criada '{}'", empresaDTO);
@@ -81,6 +85,7 @@ public class EmpresaServiceImpl implements EmpresaService {
                 .endereco(enderecoDaEmpresa)
                 .responsavel(responsavelDaEmpresa)
                 .dataDeNascimento(empresaDTO.getDataDeNascimento())
+                .status(statusDeCriacao)
                 .build();
 
         return empresaRespository.save(novaEmpresa);
@@ -107,8 +112,9 @@ public class EmpresaServiceImpl implements EmpresaService {
         log.info("Empresa de ID:'{}' Sendo Inativada", id);
 
         Empresa empresaInativada = encontrarPeloId(id);
-        empresaInativada.setStatus("inativa");
+        empresaInativada.setStatus("inativo");
 
+        empresaRespository.save(empresaInativada);
 
         log.info("Empresa de ID:'{}' Foi Inativada", id);
     }

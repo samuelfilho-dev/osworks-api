@@ -2,10 +2,8 @@ package com.albino.tecnologia.osworks.model;
 
 import javax.persistence.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -26,6 +24,8 @@ public class Usuario implements UserDetails {
     private String nome;
     @Column(unique = true)
     private String username;
+    @JsonIgnore
+    @ToString.Exclude
     private String password;
     private String email;
 

@@ -165,10 +165,11 @@ public class ContratoServiceImpl implements ContratoService {
         log.info("Contrato com ID:'{}' Sendo Inativado", id);
 
         Contrato contratoInativado = encontrarPeloIdContrato(id);
-        contratoInativado.setStatus("inativa");
+        contratoInativado.setStatus("inativo");
 
         log.info("Contrato com ID:'{}' Foi Inativado", id);
 
+        contratoRepository.save(contratoInativado);
 
         contratoInativado.setStatus("inativo");
     }

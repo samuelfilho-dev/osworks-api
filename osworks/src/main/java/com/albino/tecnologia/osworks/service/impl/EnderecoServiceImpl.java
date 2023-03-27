@@ -44,6 +44,7 @@ public class EnderecoServiceImpl implements  EnderecoService {
                 .complemento(enderecoDTO.getComplemento())
                 .bairro(enderecoDTO.getBairro())
                 .cidade(enderecoDTO.getCidade())
+                .status("ativo")
                 .UF(enderecoDTO.getUf())
                 .build();
 
@@ -72,7 +73,9 @@ public class EnderecoServiceImpl implements  EnderecoService {
         log.info("Endereco de ID:'{}' Sendo Inativado", id);
 
         Endereco enderecoInativado = encontrarPeloEndereco(id);
-        enderecoInativado.setStatus("Inativo");
+        enderecoInativado.setStatus("inativo");
+
+        enderecoRepository.save(enderecoInativado);
 
         log.info("Endereco de ID:'{}' Foi Inativado", id);
     }

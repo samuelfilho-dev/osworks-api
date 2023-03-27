@@ -1,16 +1,18 @@
 package com.albino.tecnologia.osworks.infra.jackson.deserializer;
 
+import com.albino.tecnologia.osworks.infra.utils.JavaTimeUtils;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import me.dio.academia.digital.infra.utils.JavaTimeUtils;
 
 import java.io.IOException;
+import java.io.Serial;
 import java.time.LocalDate;
 
 public class LocalDateDeserializer extends StdDeserializer<LocalDate> {
 
-    private static final long serialVersionUID = -4589164298310392227L;
+    @Serial
+    private static final long serialVersionUID = 2516705754848708776L;
 
     public LocalDateDeserializer() {
         super(LocalDate.class);

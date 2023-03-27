@@ -11,12 +11,11 @@ spring:
     properties:
       hibernate:
         format_sql: true
+    open-in-view: true
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-  jackson:
-    serialization:
-      fail-on-empty-beans: false
+
 
 logging:
   level:

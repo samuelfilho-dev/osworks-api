@@ -1,5 +1,7 @@
 package com.albino.tecnologia.osworks.controller.dto;
 
+import com.albino.tecnologia.osworks.infra.jackson.deserializer.LocalDateDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,9 +28,11 @@ public class ProjetoDTO {
     private String descricao;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate dataDeInicio;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate dataDeTermino;
 
     @NotBlank(message = "Prencha o Campo Status Do Projeto Corretamente")
