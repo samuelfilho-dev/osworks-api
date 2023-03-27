@@ -1,6 +1,8 @@
 package com.albino.tecnologia.osworks.controller.dto;
 
 import com.albino.tecnologia.osworks.enums.TipoDeContrato;
+import com.albino.tecnologia.osworks.infra.jackson.deserializer.LocalDateDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,6 +25,7 @@ public class AditivoDTO {
     private Long pontosFuncao;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate dataTermino;
 
     @Positive(message = "Prencha o Valor Com Número Positivo")

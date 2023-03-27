@@ -1,8 +1,10 @@
 package com.albino.tecnologia.osworks.controller.dto;
 
 import com.albino.tecnologia.osworks.enums.TipoDeEmpresa;
+import com.albino.tecnologia.osworks.infra.jackson.deserializer.LocalDateDeserializer;
 import com.albino.tecnologia.osworks.model.Endereco;
 import com.albino.tecnologia.osworks.model.Responsavel;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -44,6 +46,7 @@ public class EmpresaDTO {
     private String email;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate dataDeNascimento;
 
     @NotNull(message = "Algum Campo Do Responsavel Está Nulo")
