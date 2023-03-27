@@ -83,6 +83,7 @@ public class OSServiceImpl implements OSService {
                 .contrato(contrato)
                 .responsavel(responsavel)
                 .empresa(empresa)
+                .status("ativo")
                 .dataDeAbertura(LocalDate.now())
                 .build();
 
@@ -110,7 +111,9 @@ public class OSServiceImpl implements OSService {
         log.info("OS de ID:'{}' sendo Inativada ", id);
 
         OS osInativada = encontrarPeloId(id);
-        osInativada.setStatus("Inativa");
+        osInativada.setStatus("inativo");
+
+        osRepository.save(osInativada);
 
         log.info("OS de ID:'{}' foi Inativada", id);
     }

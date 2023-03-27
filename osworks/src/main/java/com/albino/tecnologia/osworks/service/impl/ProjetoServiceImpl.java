@@ -54,7 +54,7 @@ public class ProjetoServiceImpl implements ProjetoService {
                 .os(os)
                 .usuario(usuario)
                 .dataDeTermino(projetoDTO.getDataDeTermino())
-                .status(projetoDTO.getStatus())
+                .status("ativo")
                 .build();
 
         return projetoRepository.save(novoProjeto);
@@ -89,7 +89,9 @@ public class ProjetoServiceImpl implements ProjetoService {
         log.info("Projeto de ID:'{}' Sendo Inativado", id);
 
         Projeto projetoInativado = encontrarPeloId(id);
-        projetoInativado.setStatus("Inativo");
+        projetoInativado.setStatus("inativo");
+
+        projetoRepository.save(projetoInativado);
 
         log.info("Projeto de ID:'{}' Foi Inativado", id);
     }
