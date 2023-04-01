@@ -78,8 +78,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 ExceptionDetalis.builder()
                         .horario(LocalDateTime.now())
                         .status(HttpStatus.BAD_REQUEST.value())
-                        .titulo("Bad Request Exception, Verifique o Campo Da DaTA")
-                        .detalhes("Por Favor, Verifica as Datas Presentes")
+                        .titulo("Violação, Já existe um registro com esse valor")
+                        .detalhes(ex.getLocalizedMessage())
                         .mensagemDesenvolvedor(ex.getClass().getName())
                         .build(), HttpStatus.BAD_REQUEST);
     }
