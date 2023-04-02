@@ -35,13 +35,7 @@ public class ProjetoDTO {
     @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate dataDeTermino;
 
-    @NotBlank(message = "Prencha o Campo Status Do Projeto Corretamente")
-    @Size(min = 3, max = 15, message = "'${validatedValue}' precisa estar entre {min} caracteres")
-    private String status;
-
     @Positive
     private Long idDaOs;
 
-    @Positive
-    private Long idDoUsuario;
 }

@@ -18,13 +18,20 @@ public class Projeto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nome;
+
     private String descricao;
+
     private LocalDate dataDeInicio;
+
     private LocalDate dataDeTermino;
+
     private String status;
-    @OneToOne
+
+    @OneToOne(fetch = FetchType.EAGER)
     private OS os;
-    @OneToOne
+
+    @OneToOne(fetch = FetchType.EAGER)
     private Usuario usuario;
 }
