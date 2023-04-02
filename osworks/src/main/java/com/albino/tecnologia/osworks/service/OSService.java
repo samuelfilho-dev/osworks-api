@@ -11,8 +11,11 @@ import java.util.List;
 public interface OSService {
     OS encontrarPeloId(Long id);
     Page<OS> listarTodasOS(Pageable pageable);
+    List<OS> listarTodasOSPorStatus(String status);
     Contrato mostrarContratoDaOS(Long id);
     OS criarOS(Long id,OSDTO osdto);
     OS atualizarOS(Long id,OSDTO osdto);
+    OS execultarOS(Long id);
+    OS finalizarOS(Long id);
     void inativarOS(Long id);
 }

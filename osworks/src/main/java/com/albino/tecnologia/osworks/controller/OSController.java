@@ -13,6 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -48,6 +49,15 @@ public class OSController {
         return ResponseEntity.ok(contrato);
     }
 
+    @GetMapping("/status/{status}")
+    @PreAuthorize("hasAnyRole('ROLE_GP','ROLE_DIRETOR')")
+    public ResponseEntity<List<OS>> listarTodasOSPorStatus(@PathVariable String status){
+
+        List<OS> osPorStatus = osService.listarTodasOSPorStatus(status);
+
+        return ResponseEntity.ok(osPorStatus);
+    }
+
     @PostMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_GP')")
     public ResponseEntity<OS> criarOS(@PathVariable Long id,@Valid @RequestBody OSDTO osdto){
@@ -65,6 +75,25 @@ public class OSController {
 
         return ResponseEntity.ok(osAtualizada);
     }
+
+    @PutMapping("/execultar/{id}")
+    @PreAuthorize("hasRole('ROLE_GP')")
+    public ResponseEntity<OS> execultarOS(@PathVariable Long id){
+
+        OS osExecultada = osService.execultarOS(id);
+
+        return ResponseEntity.ok(osExecultada);
+    }
+
+    @PutMapping("/baixa/{id}")
+    @PreAuthorize("hasRole('ROLE_GP')")
+    public ResponseEntity<OS> finalizarOS(@PathVariable Long id){
+
+        OS osFinalizada = osService.finalizarOS(id);
+
+        return ResponseEntity.ok(osFinalizada);
+    }
+
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_GP')")
