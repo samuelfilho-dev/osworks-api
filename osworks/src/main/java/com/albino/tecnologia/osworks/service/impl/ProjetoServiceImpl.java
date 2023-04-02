@@ -63,7 +63,8 @@ public class ProjetoServiceImpl implements ProjetoService {
 
         OS os = osRepository.findById(projetoDTO.getIdDaOs()).get();
 
-        if (os.getStatus().equals("inativo")) throw new BadResquestException("A OS está Inativa");
+        if (os.getStatus().equals("inativo") || os.getStatus().equals("finalizada"))
+            throw new BadResquestException("A OS está Inativa ou Finalizada");
 
         Projeto novoProjeto = Projeto.builder()
                 .nome(projetoDTO.getNome())
