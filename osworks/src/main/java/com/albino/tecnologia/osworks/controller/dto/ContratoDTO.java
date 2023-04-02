@@ -49,6 +49,4 @@ public class ContratoDTO {
     @Positive(message = "O id Do Responsavel Deverá Ser Positivo")
     private Long idDoResponsavel;
 
-    @Positive
-    private Long idDoUsuario;
 }

@@ -151,17 +151,6 @@ public class ContratoController {
 
     }
 
-    @PutMapping("/distribuir/{id}")
-    @PreAuthorize("hasRole('ROLE_GPP')")
-    public ResponseEntity<Contrato> distribuirContrato(@PathVariable Long id, @RequestBody ContratoDTO contratoDTO){
-
-        log.info("Distribuindo Um Contrato");
-
-        Contrato contratoAtualizado = contratoService.distribuirContrato(id, contratoDTO);
-
-        return ResponseEntity.ok(contratoAtualizado);
-
-    }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_FINANCEIRO')")

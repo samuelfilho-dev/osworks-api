@@ -1,7 +1,6 @@
 package com.albino.tecnologia.osworks.service.impl;
 
 import com.albino.tecnologia.osworks.controller.dto.ContratoDTO;
-import com.albino.tecnologia.osworks.exception.BadResquestException;
 import com.albino.tecnologia.osworks.model.*;
 import com.albino.tecnologia.osworks.repository.ContratoRepository;
 import com.albino.tecnologia.osworks.repository.EmpresaRespository;
@@ -22,6 +21,7 @@ import java.util.List;
 @Log4j2
 public class ContratoServiceImpl implements ContratoService {
     private static int id = 1;
+
     private final ContratoRepository contratoRepository;
     private final EmpresaRespository empresaRespository;
     private final UsuarioRepository usuarioRepository;
@@ -140,24 +140,6 @@ public class ContratoServiceImpl implements ContratoService {
         return contratoRepository.save(novoContrato);
     }
 
-
-    @Override
-    public Contrato distribuirContrato(Long id, ContratoDTO contratoDTO) {
-
-        Contrato contratoAtualizado = encontrarPeloIdContrato(id);
-        Usuario usuario = usuarioRepository.findById(contratoDTO.getIdDoUsuario()).get();
-
-        log.info("Contrato com ID:'{}' Foi Repasado Para '{}'", id, usuario.getUsername());
-
-        boolean roleGp = usuario.getRoles().stream().anyMatch(role -> role.getRoleName().name().equals("ROLE_GP"));
-
-        if (!roleGp) throw new BadResquestException("Usuario não é Gerente de Projeto, por favor Verifique");
-
-        contratoAtualizado.setStatus("distribuido");
-        contratoAtualizado.setGerenteDeProjeto(usuario);
-
-        return contratoRepository.save(contratoAtualizado);
-    }
 
     @Override
     public void inativarContrato(Long id) {

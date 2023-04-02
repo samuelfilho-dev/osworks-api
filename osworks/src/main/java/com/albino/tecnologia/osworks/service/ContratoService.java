@@ -21,6 +21,5 @@ public interface ContratoService {
     Integer verDiaDeVencimento(Long id);
     Contrato relatorioDeConsumoDeContrato(Long id);
     Contrato criarContrato(ContratoDTO contratoDTO);
-    Contrato distribuirContrato(Long id,ContratoDTO contratoDTO);
     void inativarContrato(Long id);
 }
