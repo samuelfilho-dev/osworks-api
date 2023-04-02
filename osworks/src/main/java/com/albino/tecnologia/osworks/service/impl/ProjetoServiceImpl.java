@@ -17,6 +17,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Log4j2
@@ -45,6 +47,16 @@ public class ProjetoServiceImpl implements ProjetoService {
     }
 
     @Override
+    public List<Projeto> listarProjetoPorGerenteDeProjeto(Long id) {
+
+        Usuario usuario = encontrarGppPorId(new UsuarioPorIdDTO(id));
+
+        log.info("Listando Todos os Projetos Do Gerente de Projeto '{}'",usuario.getNome());
+
+        return projetoRepository.findByGerenteDeProjeto(usuario);
+    }
+
+    @Override
     public Projeto criarProjeto(ProjetoDTO projetoDTO) {
 
         log.info("Novo Projeto Criado '{}'", projetoDTO);
@@ -67,6 +79,7 @@ public class ProjetoServiceImpl implements ProjetoService {
 
     @Override
     public Projeto atualizarProjeto(Long id, ProjetoDTO projetoDTO) {
+
         Projeto projetoAtualizado = encontrarPeloId(id);
 
         log.info("Projeto de ID:'{}' Sendo Atualizado '{}'", id, projetoDTO);
@@ -85,16 +98,11 @@ public class ProjetoServiceImpl implements ProjetoService {
     public Projeto distribuirProjeto(Long id, UsuarioPorIdDTO usuarioDTO) {
 
         Projeto projetoDistribuido = encontrarPeloId(id);
-        Usuario usuario = usuarioRepository.findById(usuarioDTO.getIdDoUsuario()).get();
+        Usuario usuario = encontrarGppPorId(new UsuarioPorIdDTO(id));
 
         log.info("Projeto com Id '{}' foi distribuido Para '{}'",id,usuario.getNome());
 
-        boolean roleGp = usuario.getRoles().stream().anyMatch(role -> role.getRoleName().name().equals("ROLE_GP"));
-        if (!roleGp) throw new BadResquestException("Usuario não é Gerente de Projeto, por favor Verifique");
-
-        if (usuario.getStatus().equals("inativo")) throw new BadResquestException("O Usuario está inativo");
-
-        projetoDistribuido.setUsuario(usuario);
+        projetoDistribuido.setGerenteDeProjeto(usuario);
         projetoDistribuido.setStatus("em andamento");
 
         return projetoRepository.save(projetoDistribuido);
@@ -104,16 +112,11 @@ public class ProjetoServiceImpl implements ProjetoService {
     public Projeto distribuirProjetoPorUsername(Long id, UsuarioPorUsernameDTO usernameDTO) {
 
         Projeto projetoDistribuido = encontrarPeloId(id);
-        Usuario usuario = usuarioRepository.findByUsername(usernameDTO.getUsernameDoUsuario()).get();
+        Usuario usuario = encontrarGppPorUsername(new UsuarioPorUsernameDTO(usernameDTO.getUsernameDoUsuario()));
 
         log.info("Projeto com Id '{}' foi distribuido Para '{}'",id,usuario.getNome());
 
-        boolean roleGp = usuario.getRoles().stream().anyMatch(role -> role.getRoleName().name().equals("ROLE_GP"));
-        if (!roleGp) throw new BadResquestException("Usuario não é Gerente de Projeto, por favor Verifique");
-
-        if (usuario.getStatus().equals("inativo")) throw new BadResquestException("O Usuario está inativo");
-
-        projetoDistribuido.setUsuario(usuario);
+        projetoDistribuido.setGerenteDeProjeto(usuario);
         projetoDistribuido.setStatus("em andamento");
 
         return projetoRepository.save(projetoDistribuido);
@@ -142,5 +145,33 @@ public class ProjetoServiceImpl implements ProjetoService {
         projetoRepository.save(projetoInativado);
 
         log.info("Projeto de ID:'{}' Foi Inativado", id);
+    }
+
+    private Usuario encontrarGppPorId(UsuarioPorIdDTO usuarioPorIdDTO){
+
+        Usuario usuario = usuarioRepository.findById(usuarioPorIdDTO.getIdDoUsuario())
+                .orElseThrow(() -> new BadResquestException("Usuario Não Encontrado"));
+
+        boolean roleGp = usuario.getRoles().stream().anyMatch(role -> role.getRoleName().name().equals("ROLE_GP"));
+        if (!roleGp) throw new BadResquestException("Usuario não é Gerente de Projeto, por favor Verifique");
+
+        if (usuario.getStatus().equals("inativo"))
+            throw new BadResquestException("O Usuario está inativado");
+
+        return usuario;
+    }
+
+    private Usuario encontrarGppPorUsername(UsuarioPorUsernameDTO usernameDTO){
+
+        Usuario usuario = usuarioRepository.findByUsername(usernameDTO.getUsernameDoUsuario())
+                .orElseThrow(() -> new BadResquestException("Usuario Não Encontrado"));
+
+        boolean roleGp = usuario.getRoles().stream().anyMatch(role -> role.getRoleName().name().equals("ROLE_GP"));
+        if (!roleGp) throw new BadResquestException("Usuario não é Gerente de Projeto, por favor Verifique");
+
+        if (usuario.getStatus().equals("inativo"))
+            throw new BadResquestException("O Usuario está inativado");
+
+        return usuario;
     }
 }

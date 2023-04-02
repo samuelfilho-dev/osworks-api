@@ -14,6 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -37,6 +38,15 @@ public class ProjetoController {
     public ResponseEntity<Page<Projeto>> listarTodosProjetos(Pageable pageable) {
 
         Page<Projeto> projetoList = projetoService.listarTodosProjetos(pageable);
+
+        return ResponseEntity.ok(projetoList);
+    }
+
+    @GetMapping("/gp/{id}")
+    @PreAuthorize("hasRole('ROLE_GP')")
+    public ResponseEntity<List<Projeto>> listarProjetoPorGerenteDeProjeto(@PathVariable Long id) {
+
+        List<Projeto> projetoList = projetoService.listarProjetoPorGerenteDeProjeto(id);
 
         return ResponseEntity.ok(projetoList);
     }

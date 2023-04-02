@@ -32,6 +32,7 @@ public class Projeto {
     @OneToOne(fetch = FetchType.EAGER)
     private OS os;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    private Usuario usuario;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Usuario gerenteDeProjeto;
+
 }
