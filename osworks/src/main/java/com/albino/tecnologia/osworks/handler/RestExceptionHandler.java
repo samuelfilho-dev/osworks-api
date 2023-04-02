@@ -106,7 +106,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 ExceptionDetalis.builder()
                         .horario(LocalDateTime.now())
                         .status(HttpStatus.BAD_REQUEST.value())
-                        .titulo("Bad Request Exception, Verifique o Login")
+                        .titulo("Bad Request Exception, Valor Não Encontrado")
                         .detalhes(ex.getLocalizedMessage())
                         .mensagemDesenvolvedor(ex.getClass().getName())
                         .build(), HttpStatus.BAD_REQUEST);
