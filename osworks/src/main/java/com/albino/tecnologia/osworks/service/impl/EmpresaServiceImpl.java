@@ -33,7 +33,9 @@ public class EmpresaServiceImpl implements EmpresaService {
     public Page<Empresa> listarTodasEmpresas(String status, Pageable pageable) {
 
         if (status == null){
+
             log.info("Listando Todas as Empresas");
+
             return empresaRespository.findAll(pageable);
         }
 
@@ -109,10 +111,15 @@ public class EmpresaServiceImpl implements EmpresaService {
     @Override
     public void inativarEmpresa(Long id) {
 
-        log.info("Empresa de ID:'{}' Sendo Inativada", id);
+        log.info("Empresa de ID:'{}' Sendo Inativada Junto Com Seu Endereço e Responsavel", id);
+
+        String deleteStatus = "inativo";
 
         Empresa empresaInativada = encontrarPeloId(id);
-        empresaInativada.setStatus("inativo");
+        empresaInativada.setStatus(deleteStatus);
+        empresaInativada.getEndereco().setStatus(deleteStatus);
+        empresaInativada.getResponsavel().setStatus(deleteStatus);
+        empresaInativada.getResponsavel().getEndereco().setStatus(deleteStatus);
 
         empresaRespository.save(empresaInativada);
 
