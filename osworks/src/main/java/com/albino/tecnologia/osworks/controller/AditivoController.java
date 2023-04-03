@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -23,7 +25,8 @@ public class AditivoController {
 
     @PostMapping("/data/{id}")
     @PreAuthorize("hasRole('ROLE_GP')")
-    public ResponseEntity<Aditivo> adicionarAditivoDeData(@PathVariable Long id, @RequestBody AditivoDTO aditivoDTO){
+    public ResponseEntity<Aditivo> adicionarAditivoDeData(@PathVariable Long id,
+                                                           @Valid @RequestBody AditivoDTO aditivoDTO){
 
         log.info("Adição de Aditivo De Data");
 
@@ -35,7 +38,7 @@ public class AditivoController {
     @PostMapping("/valor/{id}")
     @PreAuthorize("hasRole('ROLE_GP')")
     public ResponseEntity<Aditivo> adicionarAditivoDenovoValorUnitario
-            (@PathVariable Long id, @RequestBody AditivoDTO aditivoDTO){
+            (@PathVariable Long id, @Valid @RequestBody AditivoDTO aditivoDTO){
 
         log.info("Adição de Aditivo De Valor Unitario");
 
@@ -47,7 +50,7 @@ public class AditivoController {
     @PostMapping("/descricao/{id}")
     @PreAuthorize("hasRole('ROLE_GP')")
     public ResponseEntity<Aditivo> adicionarAditivoDeDescricoes
-            (@PathVariable Long id, @RequestBody AditivoDTO aditivoDTO){
+            (@PathVariable Long id, @Valid @RequestBody AditivoDTO aditivoDTO){
 
         log.info("Adição de Aditivo De Descrições");
 
@@ -59,7 +62,7 @@ public class AditivoController {
     @PostMapping("/tipo/{id}")
     @PreAuthorize("hasRole('ROLE_GP')")
     public ResponseEntity<Aditivo> adicionarAditivoDetiposDeContratos
-            (@PathVariable Long id, @RequestBody AditivoDTO aditivoDTO){
+            (@PathVariable Long id, @Valid @RequestBody AditivoDTO aditivoDTO){
 
         log.info("Adição de Aditivo De Tipo De Contrato");
 
