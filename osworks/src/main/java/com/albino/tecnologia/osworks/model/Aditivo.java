@@ -21,16 +21,23 @@ public class Aditivo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private Long pontosFuncao;
+
     private LocalDate dataTermino;
+
     private BigDecimal valorUnitario;
+
     @ElementCollection
     @Column
     private List<TipoDeContrato> tipoDeContrato;
+
     @ElementCollection
     @Column(name = "descricao",columnDefinition = "TEXT")
     private List<String> descricoes;
+
     @ManyToOne
     @JoinColumn(name = "contrato_id")
     private Contrato contrato;
+
 }
