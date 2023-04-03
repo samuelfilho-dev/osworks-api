@@ -1,5 +1,6 @@
 package com.albino.tecnologia.osworks.controller;
 
+import com.albino.tecnologia.osworks.controller.dto.AlterarSenhaDTO;
 import com.albino.tecnologia.osworks.controller.dto.UsuarioDTO;
 import com.albino.tecnologia.osworks.model.Usuario;
 import com.albino.tecnologia.osworks.service.impl.UsuarioServiceImpl;
@@ -57,21 +58,21 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioAtualizado);
     }
 
-    @PutMapping("/senha/{id}")
+    @PutMapping("/senha/id/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<Usuario> trocarSenha(@PathVariable Long id, @RequestBody UsuarioDTO usuarioDTO){
+    public ResponseEntity<Usuario> trocarSenha(@PathVariable Long id, @RequestBody AlterarSenhaDTO senhaDTO){
 
-        Usuario usuario = usuarioService.trocarSenha(id, usuarioDTO);
+        Usuario usuario = usuarioService.trocarSenhaPorId(id, senhaDTO);
 
         return ResponseEntity.ok(usuario);
     }
 
-    @PutMapping("/senha/{username}")
+    @PutMapping("/senha/username/{username}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Usuario> trocarSenhaPorUsername(@PathVariable String username,
-                                                          @RequestBody UsuarioDTO usuarioDTO){
+                                                          @RequestBody AlterarSenhaDTO senhaDTO){
 
-        Usuario usuario = usuarioService.trocarSenhaPorUsername(username, usuarioDTO);
+        Usuario usuario = usuarioService.trocarSenhaPorUsername(username, senhaDTO);
 
         return ResponseEntity.ok(usuario);
     }
@@ -79,9 +80,9 @@ public class UsuarioController {
     @PutMapping("/senha/email/{email}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Usuario> trocarSenhaPorEmail(@PathVariable String email,
-                                                       @RequestBody UsuarioDTO usuarioDTO){
+                                                       @RequestBody AlterarSenhaDTO senhaDTO){
 
-        Usuario usuario = usuarioService.trocarSenhaPorEmail(email, usuarioDTO);
+        Usuario usuario = usuarioService.trocarSenhaPorEmail(email, senhaDTO);
 
         return ResponseEntity.ok(usuario);
     }

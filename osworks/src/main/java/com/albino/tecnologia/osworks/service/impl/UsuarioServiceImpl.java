@@ -1,5 +1,6 @@
 package com.albino.tecnologia.osworks.service.impl;
 
+import com.albino.tecnologia.osworks.controller.dto.AlterarSenhaDTO;
 import com.albino.tecnologia.osworks.controller.dto.UsuarioDTO;
 import com.albino.tecnologia.osworks.model.Role;
 import com.albino.tecnologia.osworks.model.Usuario;
@@ -108,39 +109,39 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public Usuario trocarSenha(Long id, UsuarioDTO usuarioDTO) {
+    public Usuario trocarSenhaPorId(Long id, AlterarSenhaDTO senhaDTO) {
 
 
         Usuario usuarioAtualizado = encontrarPeloId(id);
 
         log.info("A Senha Do Usuario '{}' Foi Trocada", usuarioAtualizado.getUsername());
 
-        usuarioAtualizado.setPassword(passwordEncoder.encode(usuarioDTO.getPassword()));
+        usuarioAtualizado.setPassword(passwordEncoder.encode(senhaDTO.getPassword()));
 
 
         return usuarioRepository.save(usuarioAtualizado);
     }
 
     @Override
-    public Usuario trocarSenhaPorUsername(String username, UsuarioDTO usuarioDTO) {
+    public Usuario trocarSenhaPorUsername(String username, AlterarSenhaDTO senhaDTO) {
 
         Usuario usuarioAtualizado = usuarioRepository.findByUsername(username).get();
 
         log.info("A Senha Do Usuario '{}' Foi Trocada Por Username", usuarioAtualizado.getUsername());
 
-        usuarioAtualizado.setPassword(passwordEncoder.encode(usuarioDTO.getPassword()));
+        usuarioAtualizado.setPassword(passwordEncoder.encode(senhaDTO.getPassword()));
 
         return usuarioRepository.save(usuarioAtualizado);
     }
 
     @Override
-    public Usuario trocarSenhaPorEmail(String email, UsuarioDTO usuarioDTO) {
+    public Usuario trocarSenhaPorEmail(String email, AlterarSenhaDTO senhaDTO) {
 
         Usuario usuarioAtualizado = usuarioRepository.findByEmail(email).get();
 
         log.info("A Senha Do Usuario '{}' Foi Trocada Por E-mail", usuarioAtualizado.getEmail());
 
-        usuarioAtualizado.setPassword(passwordEncoder.encode(usuarioDTO.getPassword()));
+        usuarioAtualizado.setPassword(passwordEncoder.encode(senhaDTO.getPassword()));
 
         return usuarioRepository.save(usuarioAtualizado);
     }

@@ -1,5 +1,6 @@
 package com.albino.tecnologia.osworks.service;
 
+import com.albino.tecnologia.osworks.controller.dto.AlterarSenhaDTO;
 import com.albino.tecnologia.osworks.controller.dto.UsuarioDTO;
 import com.albino.tecnologia.osworks.model.Usuario;
 import org.springframework.data.domain.Page;
@@ -13,7 +14,7 @@ public interface UsuarioService {
     Usuario criarUsuario(UsuarioDTO usuarioDTO);
     Usuario atualizarUsuario(Long id,UsuarioDTO usuarioDTO);
     void inativarUsuario(Long id);
-    Usuario trocarSenha(Long id, UsuarioDTO usuarioDTO);
-    Usuario trocarSenhaPorUsername(String username, UsuarioDTO usuarioDTO);
-    Usuario trocarSenhaPorEmail(String email, UsuarioDTO usuarioDTO);
+    Usuario trocarSenhaPorId(Long id, AlterarSenhaDTO senhaDTO);
+    Usuario trocarSenhaPorUsername(String username, AlterarSenhaDTO senhaDTO);
+    Usuario trocarSenhaPorEmail(String email, AlterarSenhaDTO senhaDTO);
 }
