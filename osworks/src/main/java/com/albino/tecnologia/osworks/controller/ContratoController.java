@@ -115,17 +115,6 @@ public class ContratoController {
 
     }
 
-    @GetMapping("/gp/{id}")
-    @PreAuthorize("hasRole('ROLE_GP')")
-    public ResponseEntity<List<Contrato>> listarContratoPorGerenteDeProjeto(@PathVariable Long id){
-
-        log.info("Retornando uma Lista do Contrato De Com Gerente de Projeto Com ID: '{}' ",id);
-
-        List<Contrato> contratoPorGerenteDeProjeto = contratoService.listarContratoPorGerenteDeProjeto(id);
-
-        return ResponseEntity.ok(contratoPorGerenteDeProjeto);
-
-    }
 
     @GetMapping("/gp/relatorio/{id}")
     @PreAuthorize("hasRole('ROLE_GP')")

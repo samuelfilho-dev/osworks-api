@@ -15,7 +15,6 @@ public interface ContratoService {
     Page<Contrato> listarTodosContratos(Pageable pageable);
     List<OS> listarOSDoContrato(Long id);
     List<Aditivo> listarAditivosDoContrato(Long id);
-    List<Contrato> listarContratoPorGerenteDeProjeto(Long id);
     List<Contrato> listarContratoPorDataDeVencimento(LocalDate dataDeVencimento);
     List<Contrato> listarContratosPorPrazoDeVencimento(Integer numerosDeDias);
     Integer verDiaDeVencimento(Long id);

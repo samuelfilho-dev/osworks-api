@@ -57,9 +57,6 @@ public class Contrato {
     @JsonIgnoreProperties("contrato")
     private List<OS> os = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "gp_id")
-    private Usuario gerenteDeProjeto;
 
     @OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties("contrato")

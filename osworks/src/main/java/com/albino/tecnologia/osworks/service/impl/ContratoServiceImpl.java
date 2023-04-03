@@ -2,7 +2,10 @@ package com.albino.tecnologia.osworks.service.impl;
 
 import com.albino.tecnologia.osworks.controller.dto.ContratoDTO;
 import com.albino.tecnologia.osworks.exception.BadResquestException;
-import com.albino.tecnologia.osworks.model.*;
+import com.albino.tecnologia.osworks.model.Aditivo;
+import com.albino.tecnologia.osworks.model.Contrato;
+import com.albino.tecnologia.osworks.model.Empresa;
+import com.albino.tecnologia.osworks.model.OS;
 import com.albino.tecnologia.osworks.repository.ContratoRepository;
 import com.albino.tecnologia.osworks.repository.EmpresaRespository;
 import com.albino.tecnologia.osworks.repository.UsuarioRepository;
@@ -25,7 +28,6 @@ public class ContratoServiceImpl implements ContratoService {
 
     private final ContratoRepository contratoRepository;
     private final EmpresaRespository empresaRespository;
-    private final UsuarioRepository usuarioRepository;
 
     @Override
     public Contrato encontrarPeloIdContrato(Long id) {
@@ -65,16 +67,6 @@ public class ContratoServiceImpl implements ContratoService {
     }
 
     @Override
-    public List<Contrato> listarContratoPorGerenteDeProjeto(Long id) {
-
-        Usuario usuario = usuarioRepository.findById(id).get();
-
-        log.info("Listando Todos Contratos do Gerente De Projetos: '{}' ", usuario.getUsername());
-
-        return contratoRepository.findByGerenteDeProjeto(usuario);
-    }
-
-    @Override
     public List<Contrato> listarContratoPorDataDeVencimento(LocalDate dataDeVencimento) {
 
         log.info("Listando Todos Contratos com a data de vencimento '{}' ", dataDeVencimento);
@@ -103,10 +95,6 @@ public class ContratoServiceImpl implements ContratoService {
 
     @Override
     public Contrato relatorioDeConsumoDeContrato(Long id) {
-
-        List<Contrato> listaDeContratos = listarContratoPorGerenteDeProjeto(id);
-
-
         return null;
     }
 

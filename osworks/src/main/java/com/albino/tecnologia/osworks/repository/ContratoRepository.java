@@ -12,7 +12,6 @@ import java.util.List;
 @Repository
 public interface ContratoRepository extends JpaRepository<Contrato,Long> {
 
-    List<Contrato> findByGerenteDeProjeto(Usuario gerenteDeProjeto);
     List<Contrato> findByDataTermino(LocalDate dataDeTermino);
     List<Contrato> findByDataTerminoBetween(LocalDate dataInicial, LocalDate dataFinal);
     @Query(value = "SELECT CASE WHEN data_termino < CURRENT_DATE THEN 0 ELSE " +

@@ -49,7 +49,8 @@ public class EnderecoController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
-    public ResponseEntity<Endereco> atualizarEndereco(@PathVariable Long id, @RequestBody EnderecoDTO enderecoDTO) {
+    public ResponseEntity<Endereco> atualizarEndereco(@PathVariable Long id,
+                                                      @Valid @RequestBody EnderecoDTO enderecoDTO) {
 
         Endereco enderecoAtualizado = enderecoService.atualizarEndereco(id, enderecoDTO);
 

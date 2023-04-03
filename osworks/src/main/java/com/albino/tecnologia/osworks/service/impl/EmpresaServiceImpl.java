@@ -13,6 +13,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 @RequiredArgsConstructor
 @Log4j2
@@ -44,6 +46,7 @@ public class EmpresaServiceImpl implements EmpresaService {
     }
 
     @Override
+    @Transactional
     public Empresa criarEmpresa(EmpresaDTO empresaDTO) {
 
         log.info("Novo Endereço Criado '{}' ", empresaDTO.getEndereco());
@@ -94,6 +97,7 @@ public class EmpresaServiceImpl implements EmpresaService {
     }
 
     @Override
+    @Transactional
     public Empresa atualizarEmpresa(Long id,EmpresaDTO empresaDTO) {
         Empresa empresaAtualizada = encontrarPeloId(id);
 
@@ -109,6 +113,7 @@ public class EmpresaServiceImpl implements EmpresaService {
     }
 
     @Override
+    @Transactional
     public void inativarEmpresa(Long id) {
 
         log.info("Empresa de ID:'{}' Sendo Inativada Junto Com Seu Endereço e Responsavel", id);

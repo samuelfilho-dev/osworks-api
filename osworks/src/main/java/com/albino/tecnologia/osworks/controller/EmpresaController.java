@@ -53,7 +53,7 @@ public class EmpresaController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
-    public Empresa atualizarEmpresa(@PathVariable Long id, @RequestBody EmpresaDTO empresaDTO){
+    public Empresa atualizarEmpresa(@PathVariable Long id,@Valid @RequestBody EmpresaDTO empresaDTO){
         return empresaService.atualizarEmpresa(id,empresaDTO);
     }
 
