@@ -99,7 +99,7 @@ public class ProjetoServiceImpl implements ProjetoService {
     public Projeto distribuirProjeto(Long id, UsuarioPorIdDTO usuarioDTO) {
 
         Projeto projetoDistribuido = encontrarPeloId(id);
-        Usuario usuario = encontrarGppPorId(new UsuarioPorIdDTO(id));
+        Usuario usuario = encontrarGppPorId(new UsuarioPorIdDTO(usuarioDTO.getIdDoUsuario()));
 
         log.info("Projeto com Id '{}' foi distribuido Para '{}'",id,usuario.getNome());
 

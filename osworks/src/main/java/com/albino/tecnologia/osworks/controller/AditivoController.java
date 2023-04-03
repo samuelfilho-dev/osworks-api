@@ -26,7 +26,7 @@ public class AditivoController {
     @PostMapping("/data/{id}")
     @PreAuthorize("hasRole('ROLE_GP')")
     public ResponseEntity<Aditivo> adicionarAditivoDeData(@PathVariable Long id,
-                                                           @Valid @RequestBody AditivoDTO aditivoDTO){
+                                                          @RequestBody AditivoDTO aditivoDTO){
 
         log.info("Adição de Aditivo De Data");
 
@@ -38,7 +38,7 @@ public class AditivoController {
     @PostMapping("/valor/{id}")
     @PreAuthorize("hasRole('ROLE_GP')")
     public ResponseEntity<Aditivo> adicionarAditivoDenovoValorUnitario
-            (@PathVariable Long id, @Valid @RequestBody AditivoDTO aditivoDTO){
+            (@PathVariable Long id, @RequestBody AditivoDTO aditivoDTO){
 
         log.info("Adição de Aditivo De Valor Unitario");
 
@@ -50,7 +50,7 @@ public class AditivoController {
     @PostMapping("/descricao/{id}")
     @PreAuthorize("hasRole('ROLE_GP')")
     public ResponseEntity<Aditivo> adicionarAditivoDeDescricoes
-            (@PathVariable Long id, @Valid @RequestBody AditivoDTO aditivoDTO){
+            (@PathVariable Long id, @RequestBody AditivoDTO aditivoDTO){
 
         log.info("Adição de Aditivo De Descrições");
 
@@ -62,7 +62,7 @@ public class AditivoController {
     @PostMapping("/tipo/{id}")
     @PreAuthorize("hasRole('ROLE_GP')")
     public ResponseEntity<Aditivo> adicionarAditivoDetiposDeContratos
-            (@PathVariable Long id, @Valid @RequestBody AditivoDTO aditivoDTO){
+            (@PathVariable Long id, @RequestBody AditivoDTO aditivoDTO){
 
         log.info("Adição de Aditivo De Tipo De Contrato");
 
