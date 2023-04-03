@@ -24,7 +24,7 @@ public class AditivoController {
 
 
     @PostMapping("/data/{id}")
-    @PreAuthorize("hasRole('ROLE_GP')")
+    @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
     public ResponseEntity<Aditivo> adicionarAditivoDeData(@PathVariable Long id,
                                                           @RequestBody AditivoDTO aditivoDTO){
 
@@ -36,7 +36,7 @@ public class AditivoController {
     }
 
     @PostMapping("/valor/{id}")
-    @PreAuthorize("hasRole('ROLE_GP')")
+    @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
     public ResponseEntity<Aditivo> adicionarAditivoDenovoValorUnitario
             (@PathVariable Long id, @RequestBody AditivoDTO aditivoDTO){
 
@@ -48,7 +48,7 @@ public class AditivoController {
     }
 
     @PostMapping("/descricao/{id}")
-    @PreAuthorize("hasRole('ROLE_GP')")
+    @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
     public ResponseEntity<Aditivo> adicionarAditivoDeDescricoes
             (@PathVariable Long id, @RequestBody AditivoDTO aditivoDTO){
 
@@ -60,7 +60,7 @@ public class AditivoController {
     }
 
     @PostMapping("/tipo/{id}")
-    @PreAuthorize("hasRole('ROLE_GP')")
+    @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
     public ResponseEntity<Aditivo> adicionarAditivoDetiposDeContratos
             (@PathVariable Long id, @RequestBody AditivoDTO aditivoDTO){
 
