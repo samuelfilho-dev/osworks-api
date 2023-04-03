@@ -1,6 +1,7 @@
 package com.albino.tecnologia.osworks.service.impl;
 
 import com.albino.tecnologia.osworks.controller.dto.ContratoDTO;
+import com.albino.tecnologia.osworks.exception.BadResquestException;
 import com.albino.tecnologia.osworks.model.*;
 import com.albino.tecnologia.osworks.repository.ContratoRepository;
 import com.albino.tecnologia.osworks.repository.EmpresaRespository;
@@ -120,6 +121,8 @@ public class ContratoServiceImpl implements ContratoService {
 
         Empresa empresa = empresaRespository.findById(contratoDTO.getIdDaEmpresa()).get();
 
+        if (empresa.getStatus().equals("inativa")) throw new BadResquestException("A Empresa está Inativa");
+
         BigDecimal valorTotal =
                 contratoDTO.getValorUnitario().multiply(BigDecimal.valueOf(contratoDTO.getQtdDePontosFuncao()));
 
@@ -156,7 +159,7 @@ public class ContratoServiceImpl implements ContratoService {
         contratoInativado.setStatus("inativo");
     }
 
-    public static Integer geradorDeCodigoDoContrato() {
+    public synchronized static Integer geradorDeCodigoDoContrato() {
 
         Integer ano = LocalDate.now().getYear();
 
