@@ -24,6 +24,7 @@ public class GeradorRelatorioController {
     private final GeradorRelatorioOSService osService;
     private final GeradorRelatorioProjetoService projetoService;
 
+
     @GetMapping("/contrato/{id}")
     @PreAuthorize("hasRole('ROLE_DIRETOR')")
     public void gerarRelatorioDeContrato(HttpServletResponse response , @PathVariable Long id){

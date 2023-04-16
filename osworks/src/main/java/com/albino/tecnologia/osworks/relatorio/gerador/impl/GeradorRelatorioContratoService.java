@@ -41,7 +41,7 @@ public class GeradorRelatorioContratoService implements GeradorPDF {
             Contrato contrato = contratoRepository.findById(id).get();
 
 
-            log.info("Criando um Novo Relatorio do Contrato com Id: '{}' " + id);
+            log.info("Criando um Novo Relatorio do Contrato com Id: '{}' ",id);
 
             PdfWriter writer = PdfWriter.getInstance(document, response.getOutputStream());
             writer.setPageEvent(new Rodape());
