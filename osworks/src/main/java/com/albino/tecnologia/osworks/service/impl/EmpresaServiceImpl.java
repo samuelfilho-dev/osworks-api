@@ -109,6 +109,7 @@ public class EmpresaServiceImpl implements EmpresaService {
         empresaAtualizada.setDataDeNascimento(empresaDTO.getDataDeNascimento());
 
         log.info("Empresa de ID:'{}' Foi Atualizada '{}'", id, empresaDTO);
+
         return empresaRespository.save(empresaAtualizada);
     }
 
