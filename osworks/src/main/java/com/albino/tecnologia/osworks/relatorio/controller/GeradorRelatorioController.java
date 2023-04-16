@@ -1,8 +1,8 @@
 package com.albino.tecnologia.osworks.relatorio.controller;
 
-import com.albino.tecnologia.osworks.relatorio.gerador.GeradorPDF;
 import com.albino.tecnologia.osworks.relatorio.gerador.impl.GeradorRelatorioContratoService;
 import com.albino.tecnologia.osworks.relatorio.gerador.impl.GeradorRelatorioOSService;
+import com.albino.tecnologia.osworks.relatorio.gerador.impl.GeradorRelatorioProjetoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,6 +22,7 @@ public class GeradorRelatorioController {
 
     private final GeradorRelatorioContratoService contratoService;
     private final GeradorRelatorioOSService osService;
+    private final GeradorRelatorioProjetoService projetoService;
 
     @GetMapping("/contrato/{id}")
     @PreAuthorize("hasRole('ROLE_DIRETOR')")
@@ -32,7 +33,7 @@ public class GeradorRelatorioController {
         String dataAtual = dateFormat.format(new Date());
 
         String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=relatorio_" + dataAtual + ".pdf";
+        String headerValue = "attachment; filename=relatorio_contr_" + dataAtual + ".pdf";
 
         response.setHeader(headerKey,headerValue);
 
@@ -53,6 +54,22 @@ public class GeradorRelatorioController {
         response.setHeader(headerKey,headerValue);
 
         osService.exportar(response,id);
+    }
+
+    @GetMapping("/projeto/{id}")
+    @PreAuthorize("hasRole('ROLE_DIRETOR')")
+    public void gerarRelatorioDeProjeto(HttpServletResponse response , @PathVariable Long id){
+
+        response.setContentType("application/pdf");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String dataAtual = dateFormat.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=relatorio_proj_" + dataAtual + ".pdf";
+
+        response.setHeader(headerKey,headerValue);
+
+        projetoService.exportar(response,id);
     }
 
 }
