@@ -1,5 +1,6 @@
 package com.albino.tecnologia.osworks.relatorio.controller;
 
+import com.albino.tecnologia.osworks.relatorio.gerador.impl.GeradorModeloContratoService;
 import com.albino.tecnologia.osworks.relatorio.gerador.impl.GeradorModeloOSService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -19,6 +20,7 @@ import java.util.Date;
 public class GeradorModeloController {
 
     private final GeradorModeloOSService modeloOSService;
+    private final GeradorModeloContratoService modeloContratoService;
 
     @GetMapping("/os/{id}")
     @PreAuthorize("hasAnyRole('ROLE_DIRETOR','ROLE_GP')")
@@ -34,5 +36,21 @@ public class GeradorModeloController {
         response.setHeader(headerKey,headerValue);
 
         modeloOSService.exportar(response,id);
+    }
+
+    @GetMapping("/contrato/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_DIRETOR','ROLE_GP')")
+    public void gerarModeloDeContrato(HttpServletResponse response , @PathVariable Long id){
+
+        response.setContentType("application/pdf");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String dataAtual = dateFormat.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=contrato_" + dataAtual + ".pdf";
+
+        response.setHeader(headerKey,headerValue);
+
+        modeloContratoService.exportar(response,id);
     }
 }
