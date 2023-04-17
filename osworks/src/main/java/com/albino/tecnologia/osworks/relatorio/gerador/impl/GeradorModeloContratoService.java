@@ -194,7 +194,7 @@ public class GeradorModeloContratoService implements GeradorPDF {
         clausula3Titulo.setSpacingAfter(5);
         document.add(clausula3Titulo);
 
-        String clausula3 = String.format("O valor total dos serviços descritos na cláusula 1 " +
+        String clausula3 = String.format("O valor total dos serviços descritos na cláusula 3 " +
                 "será de %s",
                 formatoMonetario.format(contrato.getValorTotalDoContrato()));
 
