@@ -39,7 +39,7 @@ public class GeradorModeloController {
     }
 
     @GetMapping("/contrato/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_DIRETOR','ROLE_GP')")
+    @PreAuthorize("hasAnyRole('ROLE_DIRETOR','ROLE_FINANCEIRO')")
     public void gerarModeloDeContrato(HttpServletResponse response , @PathVariable Long id){
 
         response.setContentType("application/pdf");
