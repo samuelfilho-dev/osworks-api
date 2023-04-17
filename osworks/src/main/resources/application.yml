@@ -24,3 +24,5 @@ logging:
     org:
       hibernate:
         type: trace
+  file:
+    name: /logs/app.log
