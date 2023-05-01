@@ -1,4 +1,4 @@
-package com.albino.tecnologia.osworks.reports.gerador;
+package com.albino.tecnologia.osworks.reports.generator;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.Element;

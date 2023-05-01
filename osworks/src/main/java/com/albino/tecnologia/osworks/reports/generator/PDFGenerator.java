@@ -1,4 +1,4 @@
-package com.albino.tecnologia.osworks.reports.gerador;
+package com.albino.tecnologia.osworks.reports.generator;
 
 import javax.servlet.http.HttpServletResponse;
 

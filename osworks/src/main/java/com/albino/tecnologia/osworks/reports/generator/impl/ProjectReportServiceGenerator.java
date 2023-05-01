@@ -1,8 +1,8 @@
-package com.albino.tecnologia.osworks.reports.gerador.impl;
+package com.albino.tecnologia.osworks.reports.generator.impl;
 
 import com.albino.tecnologia.osworks.models.Project;
-import com.albino.tecnologia.osworks.reports.gerador.PDFGenerator;
-import com.albino.tecnologia.osworks.reports.gerador.Footer;
+import com.albino.tecnologia.osworks.reports.generator.PDFGenerator;
+import com.albino.tecnologia.osworks.reports.generator.Footer;
 import com.albino.tecnologia.osworks.repositories.ProjectRepository;
 import com.lowagie.text.*;
 import com.lowagie.text.Font;
