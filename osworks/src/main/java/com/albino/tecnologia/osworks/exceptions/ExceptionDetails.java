@@ -18,4 +18,10 @@ public class ExceptionDetails {
     protected String developerMessage;
 
     protected LocalDateTime timeStamp;
+
+    public String toJson() {
+        return "{\"status\": " + getStatus() + ", " +
+                "\"details\": \"" + getDetails() + "\"}";
+    }
+
 }

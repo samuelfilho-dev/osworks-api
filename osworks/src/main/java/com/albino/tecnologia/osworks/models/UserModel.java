@@ -1,12 +1,11 @@
 package com.albino.tecnologia.osworks.models;
 
-import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -16,6 +15,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserModel implements UserDetails {
 
     @Id
@@ -27,7 +27,6 @@ public class UserModel implements UserDetails {
     @Column(unique = true)
     private String username;
 
-    @JsonIgnore
     @ToString.Exclude
     private String password;
 
