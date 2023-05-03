@@ -42,7 +42,7 @@ public class AdditiveController {
         return new ResponseEntity<>(unitValueAdditive, HttpStatus.CREATED);
     }
 
-    @PostMapping("/descricao/{id}")
+    @PostMapping("/description/{id}")
     @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
     public ResponseEntity<Additive> addDescriptions(@PathVariable Long id, @RequestBody AdditiveDTO additiveDTO) {
 
@@ -53,7 +53,7 @@ public class AdditiveController {
         return new ResponseEntity<>(descriptionsAdditive, HttpStatus.CREATED);
     }
 
-    @PostMapping("/tipo/{id}")
+    @PostMapping("/type/{id}")
     @PreAuthorize("hasRole('ROLE_FINANCEIRO')")
     public ResponseEntity<Additive> addTypeContract(@PathVariable Long id, @RequestBody AdditiveDTO additiveDTO) {
 
