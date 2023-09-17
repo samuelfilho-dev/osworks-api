@@ -175,7 +175,7 @@ acesse: [Documentação do Swagger](http://localhost:8080/swagger-ui/index.html#
 
 ## Licença
 
-Este projeto está licenciado sob a licença MIT. Consulte o
+Este projeto está licenciado sob a licença. Consulte o
 arquivo [(LICENSE)](https://github.com/samuelfilho-dev/osworks-api/blob/master/LICENSE) para obter.
 
 --- 
